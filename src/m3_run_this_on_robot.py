@@ -21,7 +21,7 @@ def main():
     run_test_arm()
     run_test_lower_arm()
     #run_test_calibrate_arm()
-    #run_test_move_arm_to_position(50)
+    run_test_move_arm_to_position(50)
 
 def real_thing():
     robot = rosebot.RoseBot()
