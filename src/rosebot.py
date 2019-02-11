@@ -282,9 +282,9 @@ class ArmAndClaw(object):
         while True:
             current = self.motor.get_position()
             if current > desired_arm_position + 50:
-                self.motor.turn_on(100)
-            elif current < desired_arm_position - 50:
                 self.motor.turn_on(-100)
+            elif current < desired_arm_position - 50:
+                self.motor.turn_on(100)
             else:
                 self.motor.turn_off()
                 break
