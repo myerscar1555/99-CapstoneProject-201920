@@ -31,6 +31,7 @@ class DelegateThatRecieves(object):
     def stop(self, left_wheel_speed, right_wheel_speed):
         self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
 
+
     def raise_arm(self):
         self.robot.arm_and_claw.raise_arm()
 
@@ -43,6 +44,11 @@ class DelegateThatRecieves(object):
     def move_arm_to_position(self, desired_arm_position):
         self.robot.arm_and_claw.move_arm_to_position(int(desired_arm_position))
 
+    def go_straight_for_inches_using_time(self, inches, speed):
+        self.robot.drive_system.go_straight_for_inches_using_time(inches, speed)
+
+    def go_straight_for_inches_using_encoder(self, inches, speed):
+        self.robot.drive_system.go_straight_for_inches_using_encoder(inches, speed)
 
 
     #  def quit(self):
