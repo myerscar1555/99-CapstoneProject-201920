@@ -105,10 +105,10 @@ class DriveSystem(object):
         """
         Makes the robot go straight (forward if speed > 0, else backward)
         at the given speed for the given number of inches,
-        using the encoder (degrees traveled sensor) built into the motors.
+        using the encoder (degrees traveled sensor) built into the motors..
         """
         self.go(speed, speed)
-        
+
         self.stop()
 
     # -------------------------------------------------------------------------
