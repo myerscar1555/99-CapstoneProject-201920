@@ -146,10 +146,42 @@ def get_control_frame(window, mqtt_sender):
 
     return frame
 
-
-def Drive_System(window, mqtt_sender):
+def get_sensor_frame(window,mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Sensors")
+    time_sensor = ttk.Button(frame, text="Amount of time robot moves(s)")
+    distance_sensor = ttk.Button(frame, text="Distance robot moves(in)")
+    time_entry = ttk.Entry(frame, width=8)
+    distance_entry = ttk.Entry(frame,width=8)
+
+    # Grid the widgets:
+    frame_label.grid(row=0,column=1)
+    time_sensor.grid(row=2, column=0)
+    distance_sensor.grid(row=2,column=2)
+    time_entry.grid(row=1,column=0)
+    distance_entry.grid(row=1,column=2)
+
+
+    # Set the Button callbacks:
+    time_sensor["command"] = lambda: handle_quit(mqtt_sender)
+    distance_sensor["command"] = lambda: handle_exit(mqtt_sender)
+
+    return frame
+
+
+def Drive_System(window, mqtt_sender):
+
+
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Move With Time and Sensors")
+
+    frame_label.grid()
 
     go_straight_seconds = ttk.Button(frame, text="Go Straight for Seconds")
     inches_using_time = ttk.Button(frame, text="Go Straight for inches Using time")
@@ -287,3 +319,12 @@ def handle_exit(mqtt_sender):
     Then exit this program.
       :type mqtt_sender: com.MqttClient
     """
+
+
+###############################################################################
+# Handlers for Buttons in the TeleoOperation frame.
+###############################################################################
+def handle_time(mqtt_sender,time_entry_box,speed_entry_box):
+
+    print("moving for time")
+    mqtt_sender.send_message("go_straight_for_inches_using_time", [time_entry_box.get(),speed_entry_box.get])
