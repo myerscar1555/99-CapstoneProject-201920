@@ -154,7 +154,7 @@ def get_sensor_frame(window,mqtt_sender):
     frame_label = ttk.Label(frame, text="Sensors")
     time_sensor = ttk.Button(frame, text="Amount of time robot moves(s)")
     distance_sensor = ttk.Button(frame, text="Distance robot moves(in)")
-    speed_label = ttk.Label(text="Robot Speed")
+    speed_label = ttk.Label(frame, text="Robot Speed")
     speed_entry = ttk.Entry(frame,width=8)
     time_entry = ttk.Entry(frame, width=8)
     distance_entry = ttk.Entry(frame,width=8)
@@ -163,7 +163,7 @@ def get_sensor_frame(window,mqtt_sender):
     frame_label.grid(row=0,column=1)
     time_sensor.grid(row=2, column=0)
     distance_sensor.grid(row=2,column=2)
-    speed_label.grid(row=3,column=0)
+    speed_label.grid(row=4,column=1)
     time_entry.grid(row=1,column=0)
     distance_entry.grid(row=1,column=2)
     speed_entry.grid(row=3,column=1)
@@ -172,6 +172,30 @@ def get_sensor_frame(window,mqtt_sender):
     # Set the Button callbacks:
     time_sensor["command"] = lambda: handle_time(mqtt_sender,time_entry,speed_entry)
     distance_sensor["command"] = lambda: handle_inches(mqtt_sender,distance_entry,speed_entry)
+
+    return frame
+
+def get_soundsystem_frame(window,mqtt_sender):
+    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    #Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="SoundSystem")
+    beep_label = ttk.Button(frame, text="Number of beeps")
+    tone_label = ttk.Button(frame, text="Tone Frequency")
+    phrase_label = ttk.Button(frame, text="Phrase")
+    beep_entry = ttk.Entry(frame,width=8)
+    tone_entry = ttk.Entry(frame,width=8)
+    phrase_entry = ttk.Entry(frame,width=10)
+
+    #Grid the widgets:
+    frame_label.grid(row=0,column=1)
+    beep_label.grid(row=2, column=1)
+    tone_label.grid(row=2,column=3)
+    phrase_label.grid(row=4,column=2)
+    beep_entry.grid(row=1, column=1)
+    tone_entry.grid(row=1,column=3)
+    phrase_entry.grid(row=3,column=2)
 
     return frame
 
@@ -326,7 +350,7 @@ def handle_exit(mqtt_sender):
 
 
 ###############################################################################
-# Handlers for Buttons in the TeleoOperation frame.
+# Handlers for Buttons in the TeleOperation frame.
 ###############################################################################
 def handle_time(mqtt_sender,time_entry_box,speed_entry_box):
 
@@ -339,3 +363,15 @@ def handle_inches(mqtt_sender,inches_entry_box,speed_entry_box):
     print("moving for distance", inches_entry_box.get())
     mqtt_sender.send_message("go_straight_for_inches_using_encoder",
                 [inches_entry_box.get(),speed_entry_box.get()])
+
+###############################################################################
+# Handlers for Buttons in the TeleOperation frame.
+###############################################################################
+def handle_number_of_beeps(mqtt_sender,):
+    pass
+
+def handle_frequency():
+    pass
+
+def handle_phrase():
+    pass

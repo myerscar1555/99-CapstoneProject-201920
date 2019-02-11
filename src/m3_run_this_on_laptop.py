@@ -42,7 +42,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame,arm_frame,control_frame,sensor_frame = get_shared_frames(main_frame, mqtt_sender)
+    teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame = get_shared_frames(main_frame, mqtt_sender)
 
 
     # -------------------------------------------------------------------------
@@ -53,7 +53,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame,arm_frame,control_frame,sensor_frame)
+    grid_frames(teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -68,15 +68,17 @@ def get_shared_frames(main_frame, mqtt_sender):
     arm_frame = shared_gui.get_arm_frame(main_frame,mqtt_sender)
     control_arm = shared_gui.get_control_frame(main_frame,mqtt_sender)
     sensor_frame = shared_gui.get_sensor_frame(main_frame,mqtt_sender)
+    soundsystem_frame = shared_gui.get_soundsystem_frame(main_frame,mqtt_sender)
 
-    return teleop_frame,arm_frame,control_arm,sensor_frame
+    return teleop_frame,arm_frame,control_arm,sensor_frame,soundsystem_frame
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame,sensor_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame,sensor_frame, soundsystem_frame):
     teleop_frame.grid(row=0,column=0)
     arm_frame.grid(row=1,column=0)
     control_frame.grid(row=2,column=0)
     sensor_frame.grid(row=3,column=0)
+    soundsystem_frame.grid(row=4,column=0)
 
 
 # -----------------------------------------------------------------------------
