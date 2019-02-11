@@ -147,13 +147,15 @@ def get_control_frame(window, mqtt_sender):
     return frame
 
 def get_sensor_frame(window,mqtt_sender):
-    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
     frame.grid()
 
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Sensors")
     time_sensor = ttk.Button(frame, text="Amount of time robot moves(s)")
     distance_sensor = ttk.Button(frame, text="Distance robot moves(in)")
+    speed_label = ttk.Label(text="Robot Speed")
+    speed_entry = ttk.Entry(frame,width=8)
     time_entry = ttk.Entry(frame, width=8)
     distance_entry = ttk.Entry(frame,width=8)
 
@@ -161,13 +163,15 @@ def get_sensor_frame(window,mqtt_sender):
     frame_label.grid(row=0,column=1)
     time_sensor.grid(row=2, column=0)
     distance_sensor.grid(row=2,column=2)
+    speed_label.grid(row=3,column=0)
     time_entry.grid(row=1,column=0)
     distance_entry.grid(row=1,column=2)
+    speed_entry.grid(row=3,column=1)
 
 
     # Set the Button callbacks:
-    time_sensor["command"] = lambda: handle_quit(mqtt_sender)
-    distance_sensor["command"] = lambda: handle_exit(mqtt_sender)
+    time_sensor["command"] = lambda: handle_time(mqtt_sender,time_entry,speed_entry)
+    distance_sensor["command"] = lambda: handle_inches(mqtt_sender,distance_entry,speed_entry)
 
     return frame
 
@@ -327,4 +331,11 @@ def handle_exit(mqtt_sender):
 def handle_time(mqtt_sender,time_entry_box,speed_entry_box):
 
     print("moving for time")
-    mqtt_sender.send_message("go_straight_for_inches_using_time", [time_entry_box.get(),speed_entry_box.get])
+    mqtt_sender.send_message("go_straight_for_inches_using_time",
+                             [time_entry_box.get(),speed_entry_box.get()])
+
+def handle_inches(mqtt_sender,inches_entry_box,speed_entry_box):
+
+    print("moving for distance", inches_entry_box.get())
+    mqtt_sender.send_message("go_straight_for_inches_using_encoder",
+                [inches_entry_box.get(),speed_entry_box.get()])
