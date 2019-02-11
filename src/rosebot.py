@@ -108,7 +108,7 @@ class DriveSystem(object):
         using the encoder (degrees traveled sensor) built into the motors.
         """
         self.go(speed, speed)
-
+        
         self.stop()
 
     # -------------------------------------------------------------------------
