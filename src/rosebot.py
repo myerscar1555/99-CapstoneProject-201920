@@ -269,7 +269,7 @@ class ArmAndClaw(object):
         self.motor.turn_on(-100)
         while True:
             position = self.motor.get_position()
-            if initial_position - position == (14.2 * 360):
+            if initial_position - position >= (14.1 * 360):
                 self.motor.turn_off()
                 break
         self.motor.reset_position()
@@ -281,9 +281,9 @@ class ArmAndClaw(object):
         """
         while True:
             current = self.motor.get_position()
-            if current > desired_arm_position:
+            if current > desired_arm_position + 50:
                 self.motor.turn_on(100)
-            elif current < desired_arm_position:
+            elif current < desired_arm_position - 50:
                 self.motor.turn_on(-100)
             else:
                 self.motor.turn_off()
@@ -296,7 +296,7 @@ class ArmAndClaw(object):
         """
         self.motor.turn_on(-100)
         while True:
-            if self.motor.get_position() == 0:
+            if self.motor.get_position() <= 1:
                 self.motor.turn_off()
                 break
 
