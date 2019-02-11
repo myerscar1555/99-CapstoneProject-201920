@@ -197,6 +197,12 @@ def get_soundsystem_frame(window,mqtt_sender):
     tone_entry.grid(row=1,column=3)
     phrase_entry.grid(row=3,column=2)
 
+    #Set the button callbacks:
+    beep_label["command"] = lambda: handle_number_of_beeps(mqtt_sender, beep_entry)
+    tone_label["command"] = lambda: handle_frequency(mqtt_sender, tone_entry)
+    phrase_label["command"] = lambda: handle_phrase(mqtt_sender, phrase_entry)
+
+
     return frame
 
 
@@ -367,11 +373,11 @@ def handle_inches(mqtt_sender,inches_entry_box,speed_entry_box):
 ###############################################################################
 # Handlers for Buttons in the TeleOperation frame.
 ###############################################################################
-def handle_number_of_beeps(mqtt_sender,):
-    pass
+def handle_number_of_beeps(mqtt_sender,beep_entry):
+    print("I am beeping ", beep_entry.get(), " times")
 
-def handle_frequency():
-    pass
+def handle_frequency(mqtt_sender,tone_entry):
+    print("The tone is ", tone_entry.get())
 
-def handle_phrase():
-    pass
+def handle_phrase(mqtt_sender, phrase_entry):
+    print(phrase_entry.get())
