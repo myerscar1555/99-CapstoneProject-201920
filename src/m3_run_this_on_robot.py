@@ -31,6 +31,8 @@ def real_thing():
 
     while True:
         time.sleep(.01)
+        if delegate_that_recieves
+            break
 
 
 def run_test_arm():
