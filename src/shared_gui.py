@@ -146,6 +146,28 @@ def get_control_frame(window, mqtt_sender):
 
     return frame
 
+
+def Drive_System(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    go_straight_seconds = ttk.Button(frame, text="Go Straight for Seconds")
+    inches_using_time = ttk.Button(frame, text="Go Straight for inches Using time")
+    inches_using_sensor = ttk.Button(frame, text="Go Straight for inches Using time")
+
+    speed_entry = ttk.Entry(frame, width=8)
+    speed_entry.insert(0, "100")
+    time_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+    time_entry.insert(0, "100")
+    inches_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+    inches_entry.insert(0, "100")
+
+    go_straight_seconds.grid(row=0, column=0)
+    inches_using_time.grid(row=1, column=1)
+    inches_using_sensor.grid(row=2, column=2)
+
+    go_straight_seconds["command"] = lambda: mqtt_sender.send_message("Straight for Seconds")
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
