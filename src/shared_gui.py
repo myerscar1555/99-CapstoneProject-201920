@@ -386,9 +386,12 @@ def handle_inches(mqtt_sender,inches_entry_box,speed_entry_box):
 ###############################################################################
 def handle_number_of_beeps(mqtt_sender,beep_entry):
     print("I am beeping ", beep_entry.get(), " times")
+    mqtt_sender.send_message("beep", [beep_entry.get()])
 
 def handle_frequency(mqtt_sender,tone_entry):
     print("The tone is ", tone_entry.get())
+    mqtt_sender.send_message("tone", [tone_entry.get()])
 
 def handle_phrase(mqtt_sender, phrase_entry):
     print(phrase_entry.get())
+    mqtt_sender.send_message('phrase', [phrase_entry.get()])
