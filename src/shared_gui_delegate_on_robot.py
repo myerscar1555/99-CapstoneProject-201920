@@ -57,7 +57,7 @@ class DelegateThatRecieves(object):
     def tone(self,frequency, duration):
         self.robot.sound_system.tone_maker.play_tone(int(frequency), int(duration)).wait()
 
-    def tone_sequence(self,tones):
+    def tone_sequence(self, tones):
         self.robot.sound_system.tone_maker.play_tone_sequence(int(tones)).wait()
 
     def speak(self, phrase):
