@@ -105,6 +105,11 @@ class DriveSystem(object):
         time.sleep((speed/10) * inches)
         self.stop()
 
+        seconds_per_inch_at_100 = 10.0  # 1 sec = 10 inches at 100 speed
+        seconds = abs(inches * seconds_per_inch_at_100 / speed)
+
+        self.go_straight_for_seconds(seconds, speed)
+
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
         Makes the robot go straight (forward if speed > 0, else backward)
@@ -128,6 +133,16 @@ class DriveSystem(object):
             degrees_gone = abs(self.left_motor.get_position() / speed)
         self.stop()
 
+    inches_per_degree = self.left_motor.WheelCircumference / 360
+    desired_degrees = inches / inches_per_degree
+
+    self.go(speed, speed)
+    distance_gone = self.left_motor.get_position()
+    while True:
+        self.left_motor.reset_position()
+        if distance_gone >= desired_degrees:
+            self.stop()
+            break
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
