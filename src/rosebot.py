@@ -128,7 +128,6 @@ class DriveSystem(object):
             degrees_gone = abs(self.left_motor.get_position() / speed)
         self.stop()
 
-
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
     # -------------------------------------------------------------------------
