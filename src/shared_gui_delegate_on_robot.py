@@ -48,7 +48,7 @@ class DelegateThatRecieves(object):
         self.robot.drive_system.go_straight_for_inches_using_time(int(time, speed))
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
-        self.robot.drive_system.go_straight_for_inches_using_encoder(inches, speed)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(int(inches, speed))
 
     def beep(self, number_of_beeps):
         for k in range(int(number_of_beeps)):
