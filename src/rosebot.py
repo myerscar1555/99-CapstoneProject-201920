@@ -132,7 +132,7 @@ class DriveSystem(object):
 
             degrees_gone = abs(self.left_motor.get_position() / speed)
         self.stop()
-
+'''
     inches_per_degree = self.left_motor.WheelCircumference / 360
     desired_degrees = inches / inches_per_degree
 
@@ -143,7 +143,7 @@ class DriveSystem(object):
         if distance_gone >= desired_degrees:
             self.stop()
             break
-
+'''
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
     # -------------------------------------------------------------------------
