@@ -25,14 +25,13 @@ def main():
 
 def real_thing():
     robot = rosebot.RoseBot()
-    delegate_that_recieves = DelegateThatRecieves()
+    delegate_that_recieves = robot.DelegateThatRecieves()
     mqtt_reciever = com.MqttClient(delegate_that_recieves)
     mqtt_reciever.connect_to_pc()
 
     while True:
         time.sleep(.01)
-        if delegate_that_recieves
-            break
+        break
 
 
 def run_test_arm():

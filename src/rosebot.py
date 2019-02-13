@@ -121,17 +121,18 @@ class DriveSystem(object):
 
         inches_per_degree = self.left_motor.WheelCircumference / 360
         desired_degrees = (inches / inches_per_degree)
-        self.left_motor.reset_position()
+        distance_gone = self.left_motor.reset_position()
         self.go(speed, speed)
         beeper = Beeper()
 
         beeper.beep()
-        self.go(speed, speed)
-        while (degrees_gone >= desired_degrees):
-            (self.left_motor.WheelCircumference * math.pi / 180) / self.left_motor.get_position()
 
-            degrees_gone = abs(self.left_motor.get_position() / speed)
-        self.stop()
+        self.go(speed, speed)
+        while True:
+            self.left_motor.reset_position()
+            if distance_gone >= desired_degrees:
+                self.stop()
+                break
 
 
 '''
