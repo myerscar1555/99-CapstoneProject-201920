@@ -390,7 +390,7 @@ def handle_number_of_beeps(mqtt_sender,beep_entry):
 
 def handle_frequency(mqtt_sender,tone_entry):
     print("The tone is ", tone_entry.get())
-    mqtt_sender.send_message("tone", [tone_entry.get()])
+    mqtt_sender.send_message("tone", [tone_entry.get(), 500])
 
 def handle_phrase(mqtt_sender, phrase_entry):
     print(phrase_entry.get())
