@@ -103,7 +103,6 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.left_motor.turn_on(50)
                 self.robot.drive_system.right_motor.turn_on(-50)
 
-
     #  def quit(self):
     #    print("got quit")
     #   handle_quit()
