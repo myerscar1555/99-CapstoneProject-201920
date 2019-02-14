@@ -223,8 +223,8 @@ def get_infrared_proximity_sensor_frame(window,mqtt_sender):
 
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Infrared Sensor")
-    go_forward_until_distance_is_less_than = ttk.Button(frame, text="Goes until robot is close enough.")
-    go_backward_until_distance_is_greater_than = ttk.Button(frame, text="Goes back until robot is far enough away.")
+    go_forward_until_distance_is_less_than = ttk.Button(frame, text="Goes until robot is close")
+    go_backward_until_distance_is_greater_than = ttk.Button(frame, text="Goes back until robot is far away.")
     go_until_distance_is_within = ttk.Button(frame, text="Goes until robot is within given range of object.")
     speed_label = ttk.Label(frame, text="Robot Speed")
     speed_entry = ttk.Entry(frame,width=8)
