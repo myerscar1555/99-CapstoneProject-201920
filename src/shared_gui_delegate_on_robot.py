@@ -63,9 +63,15 @@ class DelegateThatRecieves(object):
     def speak(self, phrase):
         self.robot.sound_system.speech_maker.speak(phrase).wait()
 
+    def spin_clockwise_until_sees_object(self, speed, area):
+        self.robot.drive_system.spin_clockwise_until_sees_object(speed, area)
+
+    def spin_counterclockwise_until_sees_object(self, speed, area):
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
+
 
 
 
     #  def quit(self):
-    #     print("got quit")
+    #    print("got quit")
     #   handle_quit()
