@@ -73,6 +73,44 @@ def get_teleoperation_frame(window, mqtt_sender):
 
     return frame
 
+def get_color_sensor_frame(window,mqtt_sender):
+    """
+    Construct frame on the given window, where th frame has button objecs for which color to follow
+    which intesity to follow, and an entry box for the color and intenity
+    """
+
+    #Construct frame:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    #Construct the widgets on the frame
+
+    frame_label = ttk.Label(frame, text="Color Senor")
+    color_label = ttk.Label(frame, text="Color")
+    intensity_label = ttk.Label(frame, text="Intensity")
+
+    color_entry_box = ttk.Entry(frame,width=8)
+    intensity_entry_box = ttk.Entry(frame, width=8)
+
+    follow_color_button = ttk.Button(frame, text="Follow Color")
+    follow_intensity_button = ttk.Button(frame, text="Follow Intensity")
+    find_color_button = ttk.Button(frame, text="Find Color")
+
+    #grid widgets
+    frame_label.grid(row=0, column=0)
+    color_label.grid(row=1, column=0)
+    intensity_label.grid(row=1, column=3)
+
+    color_entry_box.grid(row=1, column=2)
+    intensity_entry_box.grid(row=1, column=4)
+
+    follow_color_button.grid(row=2, column=2)
+    follow_intensity_button.grid(row=2,column=4)
+    find_color_button.grid(row=3,column=2)
+
+    #set button callbacks
+    return frame
+
 
 def get_arm_frame(window, mqtt_sender):
     """
@@ -395,3 +433,5 @@ def handle_frequency(mqtt_sender,tone_entry):
 def handle_phrase(mqtt_sender, phrase_entry):
     print(phrase_entry.get())
     mqtt_sender.send_message('phrase', [phrase_entry.get()])
+
+
