@@ -42,7 +42,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame,color_frame,infrared_proximity_sensor_frame = get_shared_frames(main_frame, mqtt_sender)
+    teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame,color_frame,infrared_proximity_sensor_frame, = get_shared_frames(main_frame, mqtt_sender)
 
 
     # -------------------------------------------------------------------------

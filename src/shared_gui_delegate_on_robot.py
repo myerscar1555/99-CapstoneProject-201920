@@ -90,6 +90,19 @@ class DelegateThatRecieves(object):
     def go_until_distance_is_within(self, distance, speed):
         self.go_until_distance_is_within(distance,speed)
 
+    def beep_according_to_distance(self, beep_rate, beep_rate_increase):
+        while True:
+            distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            if distance < 48:
+                self.robot.drive_system.go(50, 50)
+                self.robot.sound_system.beeper.beep().wait(beep_rate / (distance * beep_rate_increase))
+                if distance < 2:
+                    self.robot.drive_system.stop()
+                    break
+            else:
+                self.robot.drive_system.left_motor.turn_on(50)
+                self.robot.drive_system.right_motor.turn_on(-50)
+
 
     #  def quit(self):
     #    print("got quit")
