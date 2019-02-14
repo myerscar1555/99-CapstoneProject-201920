@@ -230,9 +230,10 @@ class DriveSystem(object):
         Assumes that it senses an object when it starts.
         """
 
-        distance = InfraredProximitySensor(4).get_distance_in_inches()
+        distance = int(float(InfraredProximitySensor(4).get_distance_in_inches()))
 
         while True:
+            print(distance)
             self.go(speed,speed)
             if int(distance) > int(inches):
                 self.go(0,0)
