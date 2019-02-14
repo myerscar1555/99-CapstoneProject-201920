@@ -305,6 +305,26 @@ def go_straight_to_the_beacon(self, inches, speed):
 # -------------------------------------------------------------------------
 # Methods for driving that use the camera.
 # -------------------------------------------------------------------------
+    def display_camera_data(self):
+        """
+        Prints on the Console the Blob data of the Blob that the camera sees
+        (if any).
+        """
+        
+
+    def spin_clockwise_until_sees_object(self, speed, area):
+        """
+        Spins clockwise at the given speed until the camera sees an object
+        of the trained color whose area is at least the given area.
+        Requires that the user train the camera on the color of the object.
+        """
+
+    def spin_counterclockwise_until_sees_object(self, speed, area):
+        """
+        Spins counter-clockwise at the given speed until the camera sees an object
+        of the trained color whose area is at least the given area.
+        Requires that the user train the camera on the color of the object.
+        """
 
 
 ###############################################################################
