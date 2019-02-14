@@ -212,7 +212,7 @@ class DriveSystem(object):
         Goes forward at the given speed until the robot is less than
         the given number of inches from the nearest object that it senses.
         """
-        distance = InfraredProximitySensor(4).get_distance_in_inches()
+        distance = int(float(InfraredProximitySensor(4).get_distance_in_inches()))
 
         while True:
             print(distance)
