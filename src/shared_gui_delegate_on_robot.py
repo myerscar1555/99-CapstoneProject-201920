@@ -69,9 +69,17 @@ class DelegateThatRecieves(object):
     def spin_counterclockwise_until_sees_object(self, speed, area):
         self.robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
 
-    def find_color(self, color, speed):
-        self.robot.go(speed)
-        self.robot.drive_system.go_straight_
+    def find_color(self, color):
+        self.robot.go(20)
+        self.robot.drive_system.go_straight_until_color_is(color)
+
+    def follow_color(self,color):
+        self.robot.go(20)
+        self.robot.drive_system.go_straight_until_color_is_not(color)
+
+    def find_intensity(self,intensity):
+        self.robot.go(20)
+        self.robot.drive_system.go_straight_until_intensity_is_greater_than(int(intensity))
 
 
     #  def quit(self):
