@@ -81,6 +81,15 @@ class DelegateThatRecieves(object):
         #self.robot.go(20)
         self.robot.drive_system.go_straight_until_intensity_is_greater_than(int(intensity),20)
 
+    def go_backward_until_distance_is_greater_than(self, distance, speed):
+        self.robot.drive_system.go_backward_until_distance_is_greater_than(distance,speed)
+
+    def go_forward_until_distance_is_less_than(self, distance, speed):
+        self.robot.drive_system.go_forward_until_distance_is_less_than(distance,speed)
+
+    def go_until_distance_is_within(self, distance, speed):
+        self.go_until_distance_is_within(distance,speed)
+
 
     #  def quit(self):
     #    print("got quit")
