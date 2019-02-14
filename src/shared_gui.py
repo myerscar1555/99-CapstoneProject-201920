@@ -445,7 +445,7 @@ def handle_phrase(mqtt_sender, phrase_entry):
 def handle_find_color(mqtt_sender,color_entry):
     print("will stop at color: ", color_entry.get())
     mqtt_sender.send_message('find_color', [color_entry.get()])
-    
+
 
 def handle_follow_color(mqtt_sender,color_entry):
     print("will follow line of color", color_entry.get())
