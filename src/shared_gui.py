@@ -234,18 +234,21 @@ def get_infrared_proximity_sensor_frame(window,mqtt_sender):
     # Grid the widgets:
     frame_label.grid(row=0,column=1)
     go_forward_until_distance_is_less_than.grid(row=2, column=0)
-    go_backward_until_distance_is_greater_than.grid(row=2,column=2)
+    go_backward_until_distance_is_greater_than.grid(row=3,column=0)
     go_until_distance_is_within.grid(row=2, column=2)
     speed_label.grid(row=4,column=1)
-    delta_entry.grid(row=1,column=0)
-    distance_entry.grid(row=1,column=2)
+    distance_entry.grid(row=1,column=0)
+    delta_entry.grid(row=1,column=2)
     speed_entry.grid(row=3,column=1)
 
 
     # Set the Button callbacks:
-    go_backward_until_distance_is_greater_than["command"] = lambda: handle_go_backward_until_distance_is_greater_than(mqtt_sender,distance_entry,speed_entry)
-    go_forward_until_distance_is_less_than["command"] = lambda: handle_go_forward_until_distance_is_less_than(mqtt_sender,distance_entry,speed_entry)
-    go_until_distance_is_within["command"] = lambda: handle_go_until_distance_is_within(mqtt_sender, delta_entry, distance_entry, speed_entry)
+    go_backward_until_distance_is_greater_than["command"] = lambda: \
+        handle_go_backward_until_distance_is_greater_than(mqtt_sender,distance_entry,speed_entry)
+    go_forward_until_distance_is_less_than["command"] = lambda: \
+        handle_go_forward_until_distance_is_less_than(mqtt_sender,distance_entry,speed_entry)
+    go_until_distance_is_within["command"] = lambda: \
+        handle_go_until_distance_is_within(mqtt_sender, delta_entry, distance_entry, speed_entry)
 
     return frame
 
@@ -493,7 +496,8 @@ def handle_follow_intensity(mqtt_sender, intensity_entry):
 ###############################################################################
 def handle_go_forward_until_distance_is_less_than(mqtt_sender,distance_entry, speed_entry):
     print("will go until closer than: ", distance_entry.get())
-    mqtt_sender.send_message('go_forward_until_distance_is_less_than', [distance_entry.get(), speed_entry.get()])
+    mqtt_sender.send_message('go_forward_until_distance_is_less_than',
+                             [int(distance_entry.get()), int(speed_entry.get())])
 
 def handle_go_backward_until_distance_is_greater_than(mqtt_sender,distance_entry, speed_entry):
     print("will go backward until further than", distance_entry.get())
