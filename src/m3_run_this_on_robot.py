@@ -51,7 +51,9 @@ def run_test_lower_arm():
     robot = rosebot.RoseBot()
     robot.arm_and_claw.lower_arm()
 
-
+def run_test_follow_color():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_straight_until_color_is()
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------

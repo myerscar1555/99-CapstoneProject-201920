@@ -87,6 +87,7 @@ class DriveSystem(object):
         self.left_motor.turn_off()
         self.right_motor.turn_off()
 
+
     def go_straight_for_seconds(self, seconds, speed):
         """
         Makes the robot go straight (forward if speed > 0, else backward)
@@ -102,9 +103,6 @@ class DriveSystem(object):
         for the given number of inches, using the approximate
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
-        self.go(speed, speed)
-        time.sleep((speed / 10) * inches)
-        self.stop()
 
         seconds_per_inch_at_100 = 10.0  # 1 sec = 10 inches at 100 speed
         seconds = abs(inches * seconds_per_inch_at_100 / speed)
@@ -117,36 +115,15 @@ class DriveSystem(object):
         at the given speed for the given number of inches,
         using the encoder (degrees traveled sensor) built into the motors.
         """
-        self.go(speed, speed)
-
         inches_per_degree = self.left_motor.WheelCircumference / 360
         desired_degrees = (inches / inches_per_degree)
-        degrees_gone = 0
         self.left_motor.reset_position()
         self.go(speed, speed)
-        beeper = Beeper()
-
-        beeper.beep()
-        self.go(speed, speed)
-        while (degrees_gone >= desired_degrees):
-            (self.left_motor.WheelCircumference * math.pi / 180) / self.left_motor.get_position()
-
-            degrees_gone = abs(int(self.left_motor.get_position() / speed))
-
-
-
-    '''
-        inches_per_degree = self.left_motor.WheelCircumference / 360
-        desired_degrees = inches / inches_per_degree
-    
-        self.go(speed, speed)
-        distance_gone = self.left_motor.get_position()
         while True:
-            self.left_motor.reset_position()
-            if distance_gone >= desired_degrees:
+            angular_position = abs(self.left_motor.get_position())
+            if desired_degrees <= angular_position:
                 self.stop()
                 break
-    '''
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
@@ -201,6 +178,7 @@ class DriveSystem(object):
 
         while True:
             self.go(speed,speed)
+            print (ground_color.get_color_as_name())
             if ground_color.get_color_as_name() == color:
                 break
             self.go(0)
