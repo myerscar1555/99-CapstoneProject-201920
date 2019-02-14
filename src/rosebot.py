@@ -47,6 +47,7 @@ class DriveSystem(object):
     Controls the robot's motion via GO and STOP methods,
         along with various methods that GO/STOP under control of a sensor.
     """
+
     # -------------------------------------------------------------------------
     # NOTE:
     #   Throughout, when going straight:
@@ -102,8 +103,13 @@ class DriveSystem(object):
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
         self.go(speed, speed)
-        time.sleep((speed/10) * inches)
+        time.sleep((speed / 10) * inches)
         self.stop()
+
+        seconds_per_inch_at_100 = 10.0  # 1 sec = 10 inches at 100 speed
+        seconds = abs(inches * seconds_per_inch_at_100 / speed)
+
+        self.go_straight_for_seconds(seconds, speed)
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
@@ -113,9 +119,9 @@ class DriveSystem(object):
         """
         self.go(speed, speed)
 
-
         inches_per_degree = self.left_motor.WheelCircumference / 360
         desired_degrees = (inches / inches_per_degree)
+        degrees_gone = 0
         self.left_motor.reset_position()
         self.go(speed, speed)
         beeper = Beeper()
@@ -125,144 +131,180 @@ class DriveSystem(object):
         while (degrees_gone >= desired_degrees):
             (self.left_motor.WheelCircumference * math.pi / 180) / self.left_motor.get_position()
 
-            degrees_gone = abs(self.left_motor.get_position() / speed)
-        self.stop()
+            degrees_gone = abs(int(self.left_motor.get_position() / speed))
+            self.stop()
 
-    # -------------------------------------------------------------------------
-    # Methods for driving that use the color sensor.
-    # -------------------------------------------------------------------------
 
-    def go_straight_until_intensity_is_less_than(self, intensity, speed):
-        """
-        Goes straight at the given speed until the intensity returned
-        by the color_sensor is less than the given intensity.
-        """
+'''
+    inches_per_degree = self.left_motor.WheelCircumference / 360
+    desired_degrees = inches / inches_per_degree
 
-    def go_straight_until_intensity_is_greater_than(self, intensity, speed):
-        """
-        Goes straight at the given speed until the intensity returned
-        by the color_sensor is greater than the given intensity.
-        """
+    self.go(speed, speed)
+    distance_gone = self.left_motor.get_position()
+    while True:
+        self.left_motor.reset_position()
+        if distance_gone >= desired_degrees:
+            self.stop()
+            break
+'''
 
-    def go_straight_until_color_is(self, color, speed):
-        """
-        Goes straight at the given speed until the color returned
-        by the color_sensor is equal to the given color.
+# -------------------------------------------------------------------------
+# Methods for driving that use the color sensor.
+# -------------------------------------------------------------------------
 
-        Colors can be integers from 0 to 7 or any of the strings
-        listed in the ColorSensor class.
+def go_straight_until_intensity_is_less_than(self, intensity, speed):
+    """
+    Goes straight at the given speed until the intensity returned
+    by the color_sensor is less than the given intensity.
+    """
+    color = ColorSensor(1)
 
-        If the color is an integer (int), then use the  get_color   method
-        to access the color sensor's color.  If the color is a string (str),
-        then use the   get_color_as_name   method to access
-        the color sensor's color.
-        """
+    while True:
+        self.go(speed)
+        if color.get_reflected_light_intensity() < intensity:
+            break
+        color = ColorSensor(1)
 
-    def go_straight_until_color_is_not(self, color, speed):
-        """
-        Goes straight at the given speed until the color returned
-        by the color_sensor is NOT equal to the given color.
 
-        Colors can be integers from 0 to 7 or any of the strings
-        listed in the ColorSensor class.
-        """
 
-    # -------------------------------------------------------------------------
-    # Methods for driving that use the infrared proximity sensor.
-    # -------------------------------------------------------------------------
-    def go_forward_until_distance_is_less_than(self, inches, speed):
-        """
-        Goes forward at the given speed until the robot is less than
-        the given number of inches from the nearest object that it senses.
-        """
+def go_straight_until_intensity_is_greater_than(self, intensity, speed):
+    """
+    Goes straight at the given speed until the intensity returned
+    by the color_sensor is greater than the given intensity.
+    """
 
-    def go_backward_until_distance_is_greater_than(self, inches, speed):
-        """
-        Goes straight at the given speed until the robot is greater than
-        the given number of inches from the nearest object that it senses.
-        Assumes that it senses an object when it starts.
-        """
+    color = ColorSensor(1)
 
-    def go_until_distance_is_within(self, delta, inches, speed):
-        """
-        Goes forward or backward, repeated as necessary, until the robot is
-        within the given delta of the given inches from the nearest object
-        that it senses.  Assumes that it senses an object when it starts.
+    while True:
+        self.go(speed)
+        if color.get_reflected_light_intensity() > intensity:
+            break
+        color = ColorSensor(1)
 
-        For example, if delta is 0.3 and inches is 7.1, then
-        the robot should move until it is between 6.8 and 7.4 inches
-        from the object.
-        """
 
-    # -------------------------------------------------------------------------
-    # Methods for driving that use the infrared beacon sensor.
-    # -------------------------------------------------------------------------
 
-    def spin_clockwise_until_beacon_heading_is_nonnegative(self, speed):
-        """
-        Spins clockwise at the given speed until the heading to the Beacon
-        is nonnegative.  Requires that the user turn on the Beacon.
-        """
+def go_straight_until_color_is(self, color, speed):
+    """
+    Goes straight at the given speed until the color returned
+    by the color_sensor is equal to the given color.
 
-    def spin_counterclockwise_until_beacon_heading_is_nonpositive(self, speed):
-        """
-        Spins counter-clockwise at the given speed until the heading to the Beacon
-        is nonnegative.  Requires that the user turn on the Beacon.
-        """
+    Colors can be integers from 0 to 7 or any of the strings
+    listed in the ColorSensor class.
 
-    def go_straight_to_the_beacon(self, inches, speed):
-        """
-        Goes forward at the given speed until the robot is less than the
-        given number of inches from the Beacon.
-        Assumes that the Beacon is turned on and placed straight ahead.
-        """
+    If the color is an integer (int), then use the  get_color   method
+    to access the color sensor's color.  If the color is a string (str),
+    then use the   get_color_as_name   method to access
+    the color sensor's color.
+    """
 
-    # -------------------------------------------------------------------------
-    # Methods for driving that use the camera.
-    # -------------------------------------------------------------------------
-    # -------------------------------------------------------------------------
-    # Methods for driving that use the camera.
-    # -------------------------------------------------------------------------
-    def display_camera_data(self):
-        """
-        Prints on the Console the Blob data of the Blob that the camera sees
-        (if any).
-        """
-        b = self.sensor_system.camera.get_biggest_blob()
-        print(b)
-        print(b.width)
-        print(b.height)
-        print(b.area)
+    ground_color = ColorSensor(1)
 
-    def spin_clockwise_until_sees_object(self, speed, area):
-        """
-        Spins clockwise at the given speed until the camera sees an object
-        of the trained color whose area is at least the given area.
-        Requires that the user train the camera on the color of the object.
-        """
-        while True:
-            b = self.sensor_system.camera.get_biggest_blob()
-            self.left_motor.turn_on(speed)
-            self.right_motor.turn_on((-1) * speed)
-            if area <= b.area:
-                self.right_motor.turn_off()
-                self.left_motor.turn_off()
-                break
+    while True:
+        self.go(speed)
+        if ground_color.get_color_as_name() == color:
+            break
+        self.go(0)
+        ground_color = ColorSensor(1)
 
-    def spin_counterclockwise_until_sees_object(self, speed, area):
-        """
-        Spins counter-clockwise at the given speed until the camera sees an object
-        of the trained color whose area is at least the given area.
-        Requires that the user train the camera on the color of the object.
-        """
-        while True:
-            b = self.sensor_system.camera.get_biggest_blob()
-            self.right_motor.turn_on(speed)
-            self.left_motor.turn_on((-1) * speed)
-            if area <= b.area:
-                self.right_motor.turn_off()
-                self.left_motor.turn_off()
-                break
+
+def go_straight_until_color_is_not(self, color, speed):
+    """
+    Goes straight at the given speed until the color returned
+    by the color_sensor is NOT equal to the given color.
+
+    Colors can be integers from 0 to 7 or any of the strings
+    listed in the ColorSensor class.
+    """
+
+    ground_color = ColorSensor(1)
+
+    while True:
+        self.go(speed)
+        if ground_color.get_color_as_name() != color:
+            self.go(0)
+            break
+        ground_color = ColorSensor(1)
+
+
+# -------------------------------------------------------------------------
+# Methods for driving that use the infrared proximity sensor.
+# -------------------------------------------------------------------------
+def go_forward_until_distance_is_less_than(self, inches, speed):
+    """
+    Goes forward at the given speed until the robot is less than
+    the given number of inches from the nearest object that it senses.
+    """
+    distance = InfraredProximitySensor().get_distance_in_inches()
+
+    while True:
+        self.go(speed)
+        if distance < inches:
+            self.go(0)
+            break
+        distance = InfraredProximitySensor().get_distance_in_inches()
+
+
+def go_backward_until_distance_is_greater_than(self, inches, speed):
+    """
+    Goes straight at the given speed until the robot is greater than
+    the given number of inches from the nearest object that it senses.
+    Assumes that it senses an object when it starts.
+    """
+
+    distance = InfraredProximitySensor().get_distance_in_inches()
+
+    while True:
+        self.go(speed)
+        if distance > inches:
+            self.go(0)
+            break
+        distance = InfraredProximitySensor().get_distance_in_inches()
+
+
+
+def go_until_distance_is_within(self, delta, inches, speed):
+    """
+    Goes forward or backward, repeated as necessary, until the robot is
+    within the given delta of the given inches from the nearest object
+    that it senses.  Assumes that it senses an object when it starts.
+
+    For example, if delta is 0.3 and inches is 7.1, then
+    the robot should move until it is between 6.8 and 7.4 inches
+    from the object.
+    """
+
+    self.go(speed)
+
+
+
+# -------------------------------------------------------------------------
+# Methods for driving that use the infrared beacon sensor.
+# -------------------------------------------------------------------------
+
+def spin_clockwise_until_beacon_heading_is_nonnegative(self, speed):
+    """
+    Spins clockwise at the given speed until the heading to the Beacon
+    is nonnegative.  Requires that the user turn on the Beacon.
+    """
+
+
+def spin_counterclockwise_until_beacon_heading_is_nonpositive(self, speed):
+    """
+    Spins counter-clockwise at the given speed until the heading to the Beacon
+    is nonnegative.  Requires that the user turn on the Beacon.
+    """
+
+
+def go_straight_to_the_beacon(self, inches, speed):
+    """
+    Goes forward at the given speed until the robot is less than the
+    given number of inches from the Beacon.
+    Assumes that the Beacon is turned on and placed straight ahead.
+    """
+
+# -------------------------------------------------------------------------
+# Methods for driving that use the camera.
+# -------------------------------------------------------------------------
 
 
 ###############################################################################
@@ -270,6 +312,7 @@ class DriveSystem(object):
 ###############################################################################
 class ArmAndClaw(object):
     """ Controls the robot's arm and claw (which operate together). """
+
     # -------------------------------------------------------------------------
     # NOTE:
     #   A POSITIVE speed for the ArmAndClaw's motor moves the arm UP.
@@ -294,7 +337,6 @@ class ArmAndClaw(object):
             if self.touch_sensor.is_pressed():
                 self.motor.turn_off()
                 break
-
 
     def calibrate_arm(self):
         """
@@ -341,6 +383,30 @@ class ArmAndClaw(object):
                 self.motor.turn_off()
                 break
 
+    # -------------------------------------------------------------------------
+    # Methods for driving that use the camera.
+    # -------------------------------------------------------------------------
+    def display_camera_data(self):
+        """
+        Prints on the Console the Blob data of the Blob that the camera sees
+        (if any).
+        """
+
+    def spin_clockwise_until_sees_object(self, speed, area):
+        """
+        Spins clockwise at the given speed until the camera sees an object
+        of the trained color whose area is at least the given area.
+        Requires that the user train the camera on the color of the object.
+        """
+
+    def spin_counterclockwise_until_sees_object(self, speed, area):
+        """
+        Spins counter-clockwise at the given speed until the camera sees an object
+        of the trained color whose area is at least the given area.
+        Requires that the user train the camera on the color of the object.
+        """
+
+
 ###############################################################################
 #    SensorSystem
 ###############################################################################
@@ -355,11 +421,10 @@ class SensorSystem(object):
         self.touch_sensor = TouchSensor(1)
         self.color_sensor = ColorSensor(3)
         self.ir_proximity_sensor = InfraredProximitySensor(4)
-     #   self.camera = Camera()
-        # self.ir_beacon_sensor = InfraredBeaconSensor(4)
-        # self.beacon_system =
-        # self.display_system =
-
+    #   self.camera = Camera()
+    # self.ir_beacon_sensor = InfraredBeaconSensor(4)
+    # self.beacon_system =
+    # self.display_system =
 
 
 ###############################################################################
@@ -443,6 +508,7 @@ class DisplaySystem(object):
 class Motor(object):
     # Future enhancements: Add additional methods from the many things
     # an ev3.Motor can do.
+    WheelCircumference = 1.3 * math.pi
 
     def __init__(self, port, motor_type='large'):
         # port must be 'A', 'B', 'C', or 'D'.  Use 'arm' as motor_type for Arm.
