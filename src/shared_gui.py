@@ -109,6 +109,10 @@ def get_color_sensor_frame(window,mqtt_sender):
     find_color_button.grid(row=3,column=2)
 
     #set button callbacks
+    follow_color_button["command"] = lambda: handle_follow_color(mqtt_sender, color_entry_box)
+    follow_intensity_button["command"] = lambda: handle_follow_intensity(mqtt_sender, intensity_entry_box)
+    find_color_button["command"] = lambda: handle_find_color(mqtt_sender, color_entry_box)
+
     return frame
 
 
@@ -432,6 +436,21 @@ def handle_frequency(mqtt_sender,tone_entry):
 
 def handle_phrase(mqtt_sender, phrase_entry):
     print(phrase_entry.get())
-    mqtt_sender.send_message('phrase', [phrase_entry.get()])
+    mqtt_sender.send_message('speak', [phrase_entry.get()])
 
 
+###############################################################################
+# Handlers for Buttons in the ColorSensor frame.
+###############################################################################
+def handle_find_color(mqtt_sender,color_entry):
+    print("will stop at color: ", color_entry.get())
+    mqtt_sender.send_message('find_color', [color_entry.get()])
+    
+
+def handle_follow_color(mqtt_sender,color_entry):
+    print("will follow line of color", color_entry.get())
+    mqtt_sender.send_message('follow_color', [color_entry.get()])
+
+def handle_follow_intensity(mqtt_sender, intensity_entry):
+    print("will follow intensity:", intensity_entry.get())
+    mqtt_sender.send_message('follow_intensity', intensity_entry.get())
