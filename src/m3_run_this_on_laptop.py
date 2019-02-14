@@ -88,6 +88,51 @@ def build_infrared_frame(window, mqtt_sender):
 
     pass
 
+def build_teleoperation_frame(window,mqtt_sender):
+    """
+    Constructs and returns a frame on the given window, where the frame
+    has Entry and Button objects that control the EV3 robot's motion
+    by passing messages using the given MQTT Sender.
+      :type  window:       ttk.Frame | ttk.Toplevel
+      :type  mqtt_sender:  com.MqttClient
+    """
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Teleoperation")
+    left_speed_label = ttk.Label(frame, text="Left wheel speed (0 to 100)")
+    right_speed_label = ttk.Label(frame, text="Right wheel speed (0 to 100)")
+
+    left_speed_entry = ttk.Entry(frame, width=8)
+    left_speed_entry.insert(0, "100")
+    right_speed_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+    right_speed_entry.insert(0, "100")
+
+    forward_button = ttk.Button(frame, text="Forward")
+    backward_button = ttk.Button(frame, text="Backward")
+    left_button = ttk.Button(frame, text="Left")
+    right_button = ttk.Button(frame, text="Right")
+    stop_button = ttk.Button(frame, text="Stop")
+
+    # Grid the widgets:
+    frame_label.grid(row=0, column=1)
+    left_speed_label.grid(row=1, column=0)
+    right_speed_label.grid(row=1, column=2)
+    left_speed_entry.grid(row=2, column=0)
+    right_speed_entry.grid(row=2, column=2)
+
+    forward_button.grid(row=3, column=1)
+    left_button.grid(row=4, column=0)
+    stop_button.grid(row=4, column=1)
+    right_button.grid(row=4, column=2)
+    backward_button.grid(row=5, column=1)
+
+    return frame
+
+#def grid_my_frames
+
 
 
 # -----------------------------------------------------------------------------
