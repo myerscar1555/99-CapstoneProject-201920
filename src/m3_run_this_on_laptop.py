@@ -83,6 +83,12 @@ def grid_shared_frames(teleop_frame, arm_frame, control_frame,sensor_frame, soun
     color_frame.grid(row=0, column=1)
     infrared_frame.grid(row=1, column=1)
 
+def build_infrared_frame(window, mqtt_sender):
+    frame = ttk.Frame
+
+    pass
+
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
