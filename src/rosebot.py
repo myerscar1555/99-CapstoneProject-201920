@@ -137,26 +137,12 @@ class DriveSystem(object):
         Goes straight at the given speed until the intensity returned
         by the color_sensor is less than the given intensity.
         """
-        while True:
-            b = self.sensor_system.camera.get_biggest_blob()
-            print(b)
-            self.go(speed, speed)
-            if intensity > b:
-                self.stop()
-                break
 
     def go_straight_until_intensity_is_greater_than(self, intensity, speed):
         """
         Goes straight at the given speed until the intensity returned
         by the color_sensor is greater than the given intensity.
         """
-        while True:
-            b = self.sensor_system.camera.get_biggest_blob()
-            print(b)
-            self.go(speed, speed)
-            if intensity < b:
-                self.stop()
-                break
 
     def go_straight_until_color_is(self, color, speed):
         """
@@ -171,13 +157,6 @@ class DriveSystem(object):
         then use the   get_color_as_name   method to access
         the color sensor's color.
         """
-        while True:
-            b = self.sensor_system.camera.get_biggest_blob()
-            print(b)
-            self.go(speed, speed)
-            if color == b:
-                self.stop()
-                break
 
     def go_straight_until_color_is_not(self, color, speed):
         """
@@ -187,13 +166,6 @@ class DriveSystem(object):
         Colors can be integers from 0 to 7 or any of the strings
         listed in the ColorSensor class.
         """
-        while True:
-            b = self.sensor_system.camera.get_biggest_blob()
-            print(b)
-            self.go(speed, speed)
-            if color != b:
-                self.stop()
-                break
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
@@ -248,7 +220,49 @@ class DriveSystem(object):
     # -------------------------------------------------------------------------
     # Methods for driving that use the camera.
     # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # Methods for driving that use the camera.
+    # -------------------------------------------------------------------------
+    def display_camera_data(self):
+        """
+        Prints on the Console the Blob data of the Blob that the camera sees
+        (if any).
+        """
+        b = self.sensor_system.camera.get_biggest_blob()
+        print(b)
+        print(b.width)
+        print(b.height)
+        print(b.area)
 
+    def spin_clockwise_until_sees_object(self, speed, area):
+        """
+        Spins clockwise at the given speed until the camera sees an object
+        of the trained color whose area is at least the given area.
+        Requires that the user train the camera on the color of the object.
+        """
+        while True:
+            b = self.sensor_system.camera.get_biggest_blob()
+            self.left_motor.turn_on(speed)
+            self.right_motor.turn_on((-1) * speed)
+            if area <= b.area:
+                self.right_motor.turn_off()
+                self.left_motor.turn_off()
+                break
+
+    def spin_counterclockwise_until_sees_object(self, speed, area):
+        """
+        Spins counter-clockwise at the given speed until the camera sees an object
+        of the trained color whose area is at least the given area.
+        Requires that the user train the camera on the color of the object.
+        """
+        while True:
+            b = self.sensor_system.camera.get_biggest_blob()
+            self.right_motor.turn_on(speed)
+            self.left_motor.turn_on((-1) * speed)
+            if area <= b.area:
+                self.right_motor.turn_off()
+                self.left_motor.turn_off()
+                break
 
 
 ###############################################################################
@@ -326,32 +340,6 @@ class ArmAndClaw(object):
             if self.motor.get_position() <= 1:
                 self.motor.turn_off()
                 break
-
-# -------------------------------------------------------------------------
-    # Methods for driving that use the camera.
-    # -------------------------------------------------------------------------
-    def display_camera_data(self):
-        """
-        Prints on the Console the Blob data of the Blob that the camera sees
-        (if any).
-        """
-
-    def spin_clockwise_until_sees_object(self, speed, area):
-        """
-        Spins clockwise at the given speed until the camera sees an object
-        of the trained color whose area is at least the given area.
-        Requires that the user train the camera on the color of the object.
-        """
-
-    def spin_counterclockwise_until_sees_object(self, speed, area):
-        """
-        Spins counter-clockwise at the given speed until the camera sees an object
-        of the trained color whose area is at least the given area.
-        Requires that the user train the camera on the color of the object.
-        """
-
-
-
 
 ###############################################################################
 #    SensorSystem
