@@ -217,6 +217,38 @@ def get_sensor_frame(window,mqtt_sender):
 
     return frame
 
+def get_infrared_proximity_sensor_frame(window,mqtt_sender):
+    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Infrared Sensor")
+    go_forward_until_distance_is_less_than = ttk.Button(frame, text="Goes until robot is close enough.")
+    go_backward_until_distance_is_greater_than = ttk.Button(frame, text="Goes back until robot is far enough away.")
+    go_until_distance_is_within = ttk.Button(frame, text="Goes until robot is within given range of object.")
+    speed_label = ttk.Label(frame, text="Robot Speed")
+    speed_entry = ttk.Entry(frame,width=8)
+    delta_entry = ttk.Entry(frame, width=8)
+    distance_entry = ttk.Entry(frame,width=8)
+
+    # Grid the widgets:
+    frame_label.grid(row=0,column=1)
+    go_forward_until_distance_is_less_than.grid(row=2, column=0)
+    go_backward_until_distance_is_greater_than.grid(row=2,column=2)
+    go_until_distance_is_within.grid(row=2, column=2)
+    speed_label.grid(row=4,column=1)
+    delta_entry.grid(row=1,column=0)
+    distance_entry.grid(row=1,column=2)
+    speed_entry.grid(row=3,column=1)
+
+
+    # Set the Button callbacks:
+    go_backward_until_distance_is_greater_than["command"] = lambda: handle_go_backward_until_distance_is_greater_than(mqtt_sender,distance_entry,speed_entry)
+    go_forward_until_distance_is_less_than["command"] = lambda: handle_go_forward_until_distance_is_less_than(mqtt_sender,distance_entry,speed_entry)
+    go_until_distance_is_within["command"] = lambda: handle_go_until_distance_is_within(mqtt_sender, delta_entry, distance_entry, speed_entry)
+
+    return frame
+
 def get_soundsystem_frame(window,mqtt_sender):
     frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
     frame.grid()
@@ -454,3 +486,19 @@ def handle_follow_color(mqtt_sender,color_entry):
 def handle_follow_intensity(mqtt_sender, intensity_entry):
     print("will follow intensity:", intensity_entry.get())
     mqtt_sender.send_message('follow_intensity', intensity_entry.get())
+
+
+###############################################################################
+# Handlers for Buttons in the Infrared Proximity Sensor frame.
+###############################################################################
+def handle_go_forward_until_distance_is_less_than(mqtt_sender,distance_entry, speed_entry):
+    print("will go until closer than: ", distance_entry.get())
+    mqtt_sender.send_message('go_forward_until_distance_is_less_than', [distance_entry.get(), speed_entry.get()])
+
+def handle_go_backward_until_distance_is_greater_than(mqtt_sender,distance_entry, speed_entry):
+    print("will go backward until further than", distance_entry.get())
+    mqtt_sender.send_message('go_backward_until_distance_is_greater_than', [distance_entry.get(), speed_entry.get()])
+
+def handle_go_until_distance_is_within(mqtt_sender, delta_entry, distance_entry, speed_entry):
+    print("will go until distance is between:", distance_entry.get(), "and", distance_entry.get() + delta_entry.get())
+    mqtt_sender.send_message('go_until_distance_is_within', [delta_entry.get(), distance_entry.get(), speed_entry.get()])
