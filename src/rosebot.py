@@ -215,8 +215,9 @@ class DriveSystem(object):
         distance = InfraredProximitySensor(4).get_distance_in_inches()
 
         while True:
+            print(distance)
             self.go(speed,speed)
-            if int(distance) < int(inches):
+            if distance < inches:
                 self.go(0,0)
                 break
             distance = InfraredProximitySensor(4).get_distance_in_inches()
