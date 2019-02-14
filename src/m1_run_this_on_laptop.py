@@ -74,6 +74,7 @@ def get_shared_frames(main_frame, mqtt_sender):
     soundsystem_frame = shared_gui.get_soundsystem_frame(main_frame,mqtt_sender)
     color_frame = shared_gui.get_color_sensor_frame(main_frame,mqtt_sender)
     infrared_proximity_sensor_frame = shared_gui.get_infrared_proximity_sensor_frame(main_frame, mqtt_sender)
+    m1_personal_infrared_frame = get_m1_personal_infrared_frame(main_frame, mqtt_sender)
 
     return teleop_frame,arm_frame,control_arm,sensor_frame,soundsystem_frame,color_frame,infrared_proximity_sensor_frame
 
@@ -86,6 +87,35 @@ def grid_shared_frames(teleop_frame, arm_frame, control_frame,sensor_frame, soun
     soundsystem_frame.grid(row=4,column=0)
     color_frame.grid(row=0, column=1)
     infrared_proximity_sensor_frame.grid(row=1, column=1)
+
+def get_m1_personal_infrared_frame(window,mqtt_sender):
+    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="m1 Personal")
+    beep_according_to_distance = ttk.Button(frame, text="Beeps at rate based on how far from object")
+    beep_label = ttk.Label(frame, text="Initial Beep Speed")
+    beep_entry = ttk.Entry(frame, width=8)
+    rate_label = ttk.Label(frame, text="Rate of Increase")
+    rate_entry = ttk.Entry(frame, width=8)
+
+    # Grid the widgets:
+    frame_label.grid(row=1, column=1)
+    beep_according_to_distance.grid(row=2, column=0)
+    beep_label.grid(row=4, column=1)
+    rate_entry.grid(row=3, column=2)
+    rate_label.grid(row=4, column=2)
+    beep_entry.grid(row=3, column=1)
+
+    # Set the Button callbacks:
+    beep_according_to_distance["command"] = lambda: handle_beep_according_to_distance(mqtt_sender, beep_entry, rate_entry)
+
+    return frame
+
+def handle_beep_according_to_distance(mqtt_sender, beep_entry, rate_entry):
+    print("Will beep at: ", beep_entry.get())
+    mqtt_sender.send_message('beep_according_to_distance', [beep_entry.get(), rate_entry.get()])
 
 
 # -----------------------------------------------------------------------------
