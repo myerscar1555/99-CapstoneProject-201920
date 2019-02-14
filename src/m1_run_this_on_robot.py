@@ -28,10 +28,6 @@ def big_boy_robot_code():
     while True:
         time.sleep(0.01)
 
-def beep_according_to_distance(initial_beep_speed, rate_of_increase):
-    while True:
-
-
 
 
 
