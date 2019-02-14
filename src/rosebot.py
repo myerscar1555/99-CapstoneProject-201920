@@ -132,98 +132,98 @@ class DriveSystem(object):
             (self.left_motor.WheelCircumference * math.pi / 180) / self.left_motor.get_position()
 
             degrees_gone = abs(int(self.left_motor.get_position() / speed))
-            self.stop()
 
 
-'''
-    inches_per_degree = self.left_motor.WheelCircumference / 360
-    desired_degrees = inches / inches_per_degree
 
-    self.go(speed, speed)
-    distance_gone = self.left_motor.get_position()
-    while True:
-        self.left_motor.reset_position()
-        if distance_gone >= desired_degrees:
-            self.stop()
-            break
-'''
+    '''
+        inches_per_degree = self.left_motor.WheelCircumference / 360
+        desired_degrees = inches / inches_per_degree
+    
+        self.go(speed, speed)
+        distance_gone = self.left_motor.get_position()
+        while True:
+            self.left_motor.reset_position()
+            if distance_gone >= desired_degrees:
+                self.stop()
+                break
+    '''
 
-# -------------------------------------------------------------------------
-# Methods for driving that use the color sensor.
-# -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # Methods for driving that use the color sensor.
+    # -------------------------------------------------------------------------
 
-def go_straight_until_intensity_is_less_than(self, intensity, speed):
-    """
-    Goes straight at the given speed until the intensity returned
-    by the color_sensor is less than the given intensity.
-    """
-    color = ColorSensor(1)
-
-    while True:
-        self.go(speed)
-        if color.get_reflected_light_intensity() < intensity:
-            break
+    def go_straight_until_intensity_is_less_than(self, intensity, speed):
+        """
+        Goes straight at the given speed until the intensity returned
+        by the color_sensor is less than the given intensity.
+        """
         color = ColorSensor(1)
 
+        while True:
+            self.go(speed)
+            if color.get_reflected_light_intensity() < intensity:
+                break
+            color = ColorSensor(1)
 
 
-def go_straight_until_intensity_is_greater_than(self, intensity, speed):
-    """
-    Goes straight at the given speed until the intensity returned
-    by the color_sensor is greater than the given intensity.
-    """
 
-    color = ColorSensor(1)
+    def go_straight_until_intensity_is_greater_than(self, intensity, speed):
+        """
+        Goes straight at the given speed until the intensity returned
+        by the color_sensor is greater than the given intensity.
+        """
 
-    while True:
-        self.go(speed)
-        if color.get_reflected_light_intensity() > intensity:
-            break
         color = ColorSensor(1)
 
+        while True:
+            self.go(speed)
+            if color.get_reflected_light_intensity() > intensity:
+                break
+            color = ColorSensor(1)
 
 
-def go_straight_until_color_is(self, color, speed):
-    """
-    Goes straight at the given speed until the color returned
-    by the color_sensor is equal to the given color.
 
-    Colors can be integers from 0 to 7 or any of the strings
-    listed in the ColorSensor class.
+    def go_straight_until_color_is(self, color, speed):
+        """
+        Goes straight at the given speed until the color returned
+        by the color_sensor is equal to the given color.
 
-    If the color is an integer (int), then use the  get_color   method
-    to access the color sensor's color.  If the color is a string (str),
-    then use the   get_color_as_name   method to access
-    the color sensor's color.
-    """
+        Colors can be integers from 0 to 7 or any of the strings
+        listed in the ColorSensor class.
 
-    ground_color = ColorSensor(1)
+        If the color is an integer (int), then use the  get_color   method
+        to access the color sensor's color.  If the color is a string (str),
+        then use the   get_color_as_name   method to access
+        the color sensor's color.
+        """
 
-    while True:
-        self.go(speed)
-        if ground_color.get_color_as_name() == color:
-            break
-        self.go(0)
         ground_color = ColorSensor(1)
 
-
-def go_straight_until_color_is_not(self, color, speed):
-    """
-    Goes straight at the given speed until the color returned
-    by the color_sensor is NOT equal to the given color.
-
-    Colors can be integers from 0 to 7 or any of the strings
-    listed in the ColorSensor class.
-    """
-
-    ground_color = ColorSensor(1)
-
-    while True:
-        self.go(speed)
-        if ground_color.get_color_as_name() != color:
+        while True:
+            self.go(speed)
+            if ground_color.get_color_as_name() == color:
+                break
             self.go(0)
-            break
+            ground_color = ColorSensor(1)
+
+
+    def go_straight_until_color_is_not(self, color, speed):
+        """
+        Goes straight at the given speed until the color returned
+        by the color_sensor is NOT equal to the given color.
+
+        Colors can be integers from 0 to 7 or any of the strings
+        listed in the ColorSensor class.
+        """
+
         ground_color = ColorSensor(1)
+
+        while True:
+            self.go(speed)
+            if ground_color.get_color_as_name() != color:
+                self.go(0)
+                break
+            ground_color = ColorSensor(1)
 
 
 # -------------------------------------------------------------------------
@@ -277,30 +277,30 @@ def go_until_distance_is_within(self, delta, inches, speed):
 
 
 
-# -------------------------------------------------------------------------
-# Methods for driving that use the infrared beacon sensor.
-# -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # Methods for driving that use the infrared beacon sensor.
+    # -------------------------------------------------------------------------
 
-def spin_clockwise_until_beacon_heading_is_nonnegative(self, speed):
-    """
-    Spins clockwise at the given speed until the heading to the Beacon
-    is nonnegative.  Requires that the user turn on the Beacon.
-    """
-
-
-def spin_counterclockwise_until_beacon_heading_is_nonpositive(self, speed):
-    """
-    Spins counter-clockwise at the given speed until the heading to the Beacon
-    is nonnegative.  Requires that the user turn on the Beacon.
-    """
+    def spin_clockwise_until_beacon_heading_is_nonnegative(self, speed):
+        """
+        Spins clockwise at the given speed until the heading to the Beacon
+        is nonnegative.  Requires that the user turn on the Beacon.
+        """
 
 
-def go_straight_to_the_beacon(self, inches, speed):
-    """
-    Goes forward at the given speed until the robot is less than the
-    given number of inches from the Beacon.
-    Assumes that the Beacon is turned on and placed straight ahead.
-    """
+    def spin_counterclockwise_until_beacon_heading_is_nonpositive(self, speed):
+        """
+        Spins counter-clockwise at the given speed until the heading to the Beacon
+        is nonnegative.  Requires that the user turn on the Beacon.
+        """
+
+
+    def go_straight_to_the_beacon(self, inches, speed):
+        """
+        Goes forward at the given speed until the robot is less than the
+        given number of inches from the Beacon.
+        Assumes that the Beacon is turned on and placed straight ahead.
+        """
 
 # -------------------------------------------------------------------------
 # Methods for driving that use the camera.
@@ -310,7 +310,7 @@ def go_straight_to_the_beacon(self, inches, speed):
         Prints on the Console the Blob data of the Blob that the camera sees
         (if any).
         """
-        
+
 
     def spin_clockwise_until_sees_object(self, speed, area):
         """
