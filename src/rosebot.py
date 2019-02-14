@@ -181,7 +181,7 @@ class DriveSystem(object):
             print (ground_color.get_color_as_name())
             if ground_color.get_color_as_name() == color:
                 break
-            self.go(0)
+            self.go(0,0)
             ground_color = ColorSensor(1)
 
 
@@ -199,7 +199,7 @@ class DriveSystem(object):
         while True:
             self.go(speed,speed)
             if ground_color.get_color_as_name() != color:
-                self.go(0)
+                self.go(0,0)
                 break
             ground_color = ColorSensor(1)
 
@@ -215,9 +215,9 @@ class DriveSystem(object):
         distance = InfraredProximitySensor(4).get_distance_in_inches()
 
         while True:
-            self.go(speed)
-            if distance < inches:
-                self.go(0)
+            self.go(speed,speed)
+            if int(distance) < int(inches):
+                self.go(0,0)
                 break
             distance = InfraredProximitySensor(4).get_distance_in_inches()
 
@@ -232,9 +232,9 @@ class DriveSystem(object):
         distance = InfraredProximitySensor(4).get_distance_in_inches()
 
         while True:
-            self.go(speed)
-            if distance > inches:
-                self.go(0)
+            self.go(speed,speed)
+            if int(distance) > int(inches):
+                self.go(0,0)
                 break
             distance = InfraredProximitySensor(4).get_distance_in_inches()
 
