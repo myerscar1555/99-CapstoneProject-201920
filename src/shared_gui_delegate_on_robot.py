@@ -100,6 +100,8 @@ class DelegateThatRecieves(object):
                 if distance < 4:
                     self.robot.drive_system.stop()
                     self.robot.arm_and_claw.raise_arm()
+                    time.sleep(2)
+                    self.robot.arm_and_claw.lower_arm()
                     break
             else:
                 self.robot.drive_system.left_motor.turn_on(50)
