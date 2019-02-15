@@ -85,7 +85,7 @@ def get_m2_personal_infrared_frame(main_frame,mqtt_sender):
     rate_label = ttk.Label(frame, text="Rate of Increase")
     rate_entry = ttk.Entry(frame, width=8)
     speed_label = ttk.Label(frame, text='Speed of robot')
-    speed_slider = ttk.Scale(frame, to=10)
+    speed_entry = ttk.Entry(frame, width=8)
     distance_label = ttk.Label(frame, text='Distance to stop')
     distance_entry = ttk.Entry(frame, width=8)
 
@@ -103,7 +103,7 @@ def get_m2_personal_infrared_frame(main_frame,mqtt_sender):
     distance_entry.grid(row=7, column=1)
 
     # Set the Button callbacks:
-    beep_according_to_distance["command"] = lambda: handle_tone_until_distance_is_less_than(mqtt_sender, distance_entry, speed_slider, frequency_entry, rate_entry)
+    beep_according_to_distance["command"] = lambda: handle_tone_until_distance_is_less_than(mqtt_sender, distance_entry, speed_entry, frequency_entry, rate_entry)
 
     return frame
 
