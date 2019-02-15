@@ -99,8 +99,7 @@ class DelegateThatRecieves(object):
                 time.sleep(int(beep_rate) / ((60 - int(distance)) * int(beep_rate_increase)))
                 if distance < 4:
                     self.robot.drive_system.stop()
-                    self.robot.arm_and_claw.raise_arm()
-                    time.sleep(2)
+                    self.robot.arm_and_claw.raise_arm().wait()
                     self.robot.arm_and_claw.lower_arm()
                     break
             else:
