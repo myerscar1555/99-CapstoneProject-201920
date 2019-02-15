@@ -95,11 +95,12 @@ class DelegateThatRecieves(object):
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             if distance < 60:
                 self.robot.drive_system.go(50, 50)
-                self.robot.sound_system.beeper.beep().wait()
+                print(distance)
+                self.robot.sound_system.beeper.beep()
                 time.sleep(int(beep_rate) / ((60 - int(distance)) * int(beep_rate_increase)))
                 if distance < 4:
                     self.robot.drive_system.stop()
-                    self.robot.arm_and_claw.raise_arm().wait()
+                    self.robot.arm_and_claw.raise_arm()
                     self.robot.arm_and_claw.lower_arm()
                     break
             else:
