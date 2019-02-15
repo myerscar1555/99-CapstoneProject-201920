@@ -333,8 +333,8 @@ def get_camera_frame(window, mqtt_sender):
     counterclockwise.grid(row=0, column=0)
     clockwise.grid(row=0, column=1)
 
-    clockwise["command"] = lambda: mqtt_sender.send_message("spin_clockwise_until_sees_object", speed_entry, area_entry)
-    counterclockwise["command"] = lambda: mqtt_sender.send_message("spin_counterclockwise_until_sees_object", speed_entry, area_entry)
+    clockwise["command"] = lambda: mqtt_sender.send_message("spin_clockwise_until_sees_object", [speed_entry, area_entry])
+    counterclockwise["command"] = lambda: mqtt_sender.send_message("spin_counterclockwise_until_sees_object", [speed_entry, area_entry])
 
 ###############################################################################
 ###############################################################################
