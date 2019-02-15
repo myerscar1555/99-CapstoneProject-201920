@@ -111,7 +111,7 @@ class DelegateThatRecieves(object):
                 print(distance)
                 self.robot.sound_system.tone_maker.play_tone(int(frequency_entry), 500)
                 time.sleep(((60 - int(distance)) * int(rate_entry)))
-                if distance < distance_entry:
+                if distance < int(distance_entry):
                     self.robot.drive_system.stop()
                     self.robot.arm_and_claw.raise_arm()
                     self.robot.arm_and_claw.lower_arm()
