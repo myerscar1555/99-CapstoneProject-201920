@@ -94,9 +94,9 @@ def build_infrared_frame(window,mqtt_sender):
 
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Infrared Sensor")
-    search_for_object  = ttk.Button(frame, text="search for object")
+    #search_for_object  = ttk.Button(frame, text="search for object")
     get_object = ttk.Button(frame, text="Pick up object in front")
-    go_until_distance_is_within = ttk.Button(frame, text="Goes until robot is within given range of object.")
+    search_for_object = ttk.Button(frame, text="search for object within range")
     speed_label = ttk.Label(frame, text="Robot Speed")
     speed_entry = ttk.Entry(frame,width=8)
     delta_entry = ttk.Entry(frame, width=8)
@@ -104,9 +104,9 @@ def build_infrared_frame(window,mqtt_sender):
 
     # Grid the widgets:
     frame_label.grid(row=0,column=1)
-    search_for_object.grid(row=2, column=0)
+    #search_for_object.grid(row=2, column=0)
     get_object.grid(row=3,column=0)
-    go_until_distance_is_within.grid(row=2, column=2)
+    search_for_object.grid(row=2, column=2)
     speed_label.grid(row=4,column=1)
     distance_entry.grid(row=1,column=0)
     delta_entry.grid(row=1,column=2)
@@ -115,11 +115,11 @@ def build_infrared_frame(window,mqtt_sender):
 
     # Set the Button callbacks:
     get_object["command"] = lambda: \
-        shared_gui.handle_go_backward_until_distance_is_greater_than(mqtt_sender,distance_entry,speed_entry)
+        shared_gui.handle_pick_up_object(mqtt_sender,distance_entry,speed_entry)
+    #search_for_object["command"] = lambda: \
+    #    shared_gui.handle_go_forward_until_distance_is_less_than(mqtt_sender,distance_entry,speed_entry)
     search_for_object["command"] = lambda: \
-        shared_gui.handle_go_forward_until_distance_is_less_than(mqtt_sender,distance_entry,speed_entry)
-    go_until_distance_is_within["command"] = lambda: \
-        shared_gui.handle_go_until_distance_is_within(mqtt_sender, delta_entry, distance_entry, speed_entry)
+        shared_gui.handle_search_for_object(mqtt_sender, delta_entry, distance_entry, speed_entry)
 
     return frame
 
@@ -128,7 +128,8 @@ def handle_pick_up_object(mqtt_sender,distance_entry,speed_entry):
     mqtt_sender.send_message('blink_according_to_distance',
                              [mqtt_sender,distance_entry,speed_entry])
 
-
+def handle_search_for_object(mqtt_sender,delta_entry,speed_entry):
+    mqtt_sender.send_message('search_for_object', [mqtt_sender,delta_entry,speed_entry])
 
 
 

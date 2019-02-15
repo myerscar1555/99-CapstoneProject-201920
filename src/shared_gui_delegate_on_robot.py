@@ -122,13 +122,27 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.left_motor.turn_on(50)
                 self.robot.drive_system.right_motor.turn_on(-50)
 
-    def blink_according_to_distance(self, distance_entry, speed_entry):
+    def pick_up_object(self, distance_entry, speed_entry):
         while True:
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-            if distance < 60:
-                self.robot.drive_system.go(int(speed_entry),int(speed_entry))
-                print(distance)
-        pass
+            self.robot.drive_system.go(int(speed_entry),int(speed_entry))
+            print(distance)
+            if distance < int(distance_entry):
+                self.robot.drive_system.stop()
+                self.robot.arm_and_claw.raise_arm()
+                self.robot.arm_and_claw.lower_arm()
+                break
+
+    def search_for_object(self,delta_entry,speed_entry):
+        while True:
+            distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            if distance < int(delta_entry):
+                self.robot.sound_system.speech_maker.speak("I found alpha")
+                break
+            else:
+                self.robot.drive_system.left_motor.turn_on(int(speed_entry.get()))
+                self.robot.drive_system.right_motor.turn_on(-int(speed_entry.get()))
+
 
     #  def quit(self):
     #    print("got quit")
