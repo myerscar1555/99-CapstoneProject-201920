@@ -326,12 +326,12 @@ def get_camera_frame(window, mqtt_sender):
     clockwise = ttk.Button(frame, text="Turn Clockwise until sees object")
 
     speed_entry = ttk.Entry(frame, width=8)
-    speed_entry.insert(0, "100")
+    speed_entry.grid(row=1,column=0)
     area_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
-    area_entry.insert(0, "100")
+    area_entry.grid(row=1,column=1)
 
     counterclockwise.grid(row=0, column=0)
-    clockwise.grid(row=1, column=1)
+    clockwise.grid(row=0, column=1)
 
     clockwise["command"] = lambda: mqtt_sender.send_message("spin_clockwise_until_sees_object", speed_entry, area_entry)
     counterclockwise["command"] = lambda: mqtt_sender.send_message("spin_counterclockwise_until_sees_object", speed_entry, area_entry)
