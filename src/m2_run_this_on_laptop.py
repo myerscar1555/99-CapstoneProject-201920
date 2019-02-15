@@ -72,7 +72,7 @@ def get_shared_frames(main_frame, mqtt_sender):
     infrared_frame = get_m2_personal_infrared_frame(main_frame, mqtt_sender)
     camera_frame = shared_gui.get_camera_frame(main_frame, mqtt_sender)
 
-    return teleop_frame,arm_frame,control_arm,sensor_frame,soundsystem_frame, infrared_frame, camera_frame
+    return (teleop_frame,arm_frame,control_arm,sensor_frame,soundsystem_frame, infrared_frame, camera_frame)
 
 def get_m2_personal_infrared_frame(main_frame,mqtt_sender):
     frame = ttk.Frame(main_frame, padding=5, borderwidth=5, relief="ridge")
