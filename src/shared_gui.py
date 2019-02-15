@@ -311,6 +311,31 @@ def Drive_System(window, mqtt_sender):
 
     go_straight_seconds["command"] = lambda: mqtt_sender.send_message("Straight for Seconds")
 
+
+def get_camera_frame(window, mqtt_sender):
+
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Using the Camera")
+
+    frame_label.grid()
+
+    counterclockwise = ttk.Button(frame, text="Turn CounterClockwise until sees object")
+    clockwise = ttk.Button(frame, text="Turn Clockwise until sees object")
+
+    speed_entry = ttk.Entry(frame, width=8)
+    speed_entry.insert(0, "100")
+    area_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+    area_entry.insert(0, "100")
+
+    counterclockwise.grid(row=0, column=0)
+    clockwise.grid(row=1, column=1)
+
+    clockwise["command"] = lambda: mqtt_sender.send_message("spin_clockwise_until_sees_object", speed_entry, area_entry)
+    counterclockwise["command"] = lambda: mqtt_sender.send_message("spin_counterclockwise_until_sees_object", speed_entry, area_entry)
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -506,3 +531,16 @@ def handle_go_backward_until_distance_is_greater_than(mqtt_sender,distance_entry
 def handle_go_until_distance_is_within(mqtt_sender, delta_entry, distance_entry, speed_entry):
     print("will go until distance is between:", distance_entry.get(), "and", distance_entry.get() + delta_entry.get())
     mqtt_sender.send_message('go_until_distance_is_within', [delta_entry.get(), distance_entry.get(), speed_entry.get()])
+
+
+###############################################################################
+# Handlers for Buttons in the Camera frame.
+###############################################################################
+def spin_clockwise_until_sees_object(mqtt_sender,speed_entry, area_entry):
+    print("Spins clockwise until sees object of area: ", area_entry.get())
+    mqtt_sender.send_message('spin_clockwise_until_sees_object', [speed_entry.get(), area_entry.get()])
+
+
+def spin_counterclockwise_until_sees_object(mqtt_sender,speed_entry, area_entry):
+    print("Spins counterclockwise until sees object of area: ", area_entry.get())
+    mqtt_sender.send_message('spin_counterclockwise_until_sees_object', [speed_entry.get(), area_entry.get()])
