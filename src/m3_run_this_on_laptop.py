@@ -125,8 +125,10 @@ def build_infrared_frame(window,mqtt_sender):
 
 
 def handle_pick_up_object(mqtt_sender,distance_entry,speed_entry):
-    mqtt_sender.send_message('pick_up_object',
+    mqtt_sender.send_message('blink_according_to_distance',
                              [mqtt_sender,distance_entry,speed_entry])
+
+
 
 
 

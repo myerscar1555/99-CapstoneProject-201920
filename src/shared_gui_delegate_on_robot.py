@@ -123,6 +123,11 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.right_motor.turn_on(-50)
 
     def blink_according_to_distance(self, distance_entry, speed_entry):
+        while True:
+            distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            if distance < 60:
+                self.robot.drive_system.go(int(speed_entry),int(speed_entry))
+                print(distance)
         pass
 
     #  def quit(self):
