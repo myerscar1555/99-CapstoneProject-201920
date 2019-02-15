@@ -333,8 +333,8 @@ def get_camera_frame(window, mqtt_sender):
     counterclockwise.grid(row=0, column=0)
     clockwise.grid(row=0, column=1)
 
-    clockwise["command"] = lambda: mqtt_sender.send_message("spin_clockwise_until_sees_object", [speed_entry, area_entry])
-    counterclockwise["command"] = lambda: mqtt_sender.send_message("spin_counterclockwise_until_sees_object", [speed_entry, area_entry])
+    clockwise["command"] = lambda: handle_spin_clockwise_until_sees_object(mqtt_sender, speed_entry, area_entry)
+    counterclockwise["command"] = lambda: handle_spin_counterclockwise_until_sees_object(mqtt_sender, speed_entry, area_entry)
 
 ###############################################################################
 ###############################################################################
@@ -536,11 +536,11 @@ def handle_go_until_distance_is_within(mqtt_sender, delta_entry, distance_entry,
 ###############################################################################
 # Handlers for Buttons in the Camera frame.
 ###############################################################################
-def spin_clockwise_until_sees_object(mqtt_sender,speed_entry, area_entry):
+def handle_spin_clockwise_until_sees_object(mqtt_sender,speed_entry, area_entry):
     print("Spins clockwise until sees object of area: ", area_entry.get())
     mqtt_sender.send_message('spin_clockwise_until_sees_object', [speed_entry.get(), area_entry.get()])
 
 
-def spin_counterclockwise_until_sees_object(mqtt_sender,speed_entry, area_entry):
+def handle_spin_counterclockwise_until_sees_object(mqtt_sender,speed_entry, area_entry):
     print("Spins counterclockwise until sees object of area: ", area_entry.get())
     mqtt_sender.send_message('spin_counterclockwise_until_sees_object', [speed_entry.get(), area_entry.get()])
