@@ -78,7 +78,7 @@ def get_m2_personal_infrared_frame(main_frame,mqtt_sender):
     frame.grid()
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="michael Personal")
+    frame_label = ttk.Label(frame, text="Michael Personal")
     beep_according_to_distance = ttk.Button(frame, text="Frequency raises at rate based on how far from object")
     beep_label = ttk.Label(frame, text="Initial Frequency")
     frequency_entry = ttk.Entry(frame, width=8)
