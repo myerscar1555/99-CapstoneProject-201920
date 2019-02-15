@@ -98,7 +98,7 @@ def get_m2_personal_infrared_frame(main_frame,mqtt_sender):
     rate_label.grid(row=4, column=0)
     frequency_entry.grid(row=3, column=1)
     speed_label.grid(row=6, column=0)
-    speed_slider.grid(row=6, column=1)
+    speed_entry.grid(row=6, column=1)
     distance_label.grid(row=7, column=0)
     distance_entry.grid(row=7, column=1)
 
@@ -109,7 +109,7 @@ def get_m2_personal_infrared_frame(main_frame,mqtt_sender):
 
 def handle_tone_until_distance_is_less_than(mqtt_sender,distance_entry, speed_entry, frequency_entry, rate_entry):
     print("will go until closer than: ", distance_entry.get())
-    mqtt_sender.send_message('tone_until_distance_is_less_than', [distance_entry.get(), speed_entry.get(), frequency_entry.get, rate_entry.get])
+    mqtt_sender.send_message('tone_until_distance_is_less_than', [distance_entry.get(), speed_entry.get(), frequency_entry.get(), rate_entry.get()])
 
 def grid_frames(teleop_frame, arm_frame, control_frame,sensor_frame, soundsystem_frame, infrared_frame):
     teleop_frame.grid(row=0,column=0)
