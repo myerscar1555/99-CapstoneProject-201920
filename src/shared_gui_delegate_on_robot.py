@@ -103,6 +103,23 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.left_motor.turn_on(50)
                 self.robot.drive_system.right_motor.turn_on(-50)
 
+    def tone_until_distance_is_less_than(self, distance_entry, speed_entry, frequency_entry, rate_entry):
+        while True:
+            distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            if distance < 60:
+                self.robot.drive_system.go(int(speed_entry), int(speed_entry))
+                print(distance)
+                self.robot.sound_system.tone_maker.play_tone(frequency_entry, 500)
+                time.sleep(((60 - int(distance)) * int(rate_entry)))
+                if distance < distance_entry:
+                    self.robot.drive_system.stop()
+                    self.robot.arm_and_claw.raise_arm()
+                    self.robot.arm_and_claw.lower_arm()
+                    break
+            else:
+                self.robot.drive_system.left_motor.turn_on(50)
+                self.robot.drive_system.right_motor.turn_on(-50)
+
     #  def quit(self):
     #    print("got quit")
     #   handle_quit()
