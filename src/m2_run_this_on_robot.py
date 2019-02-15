@@ -28,13 +28,6 @@ def big_boy_robot_code():
     while True:
         time.sleep(0.01)
 
-def proximity_frequency(self, frequency, duration, rate):
-
-    while True:
-        rosebot.ToneMaker.play_tone(self, (frequency * rate), duration)
-        if rosebot.InfraredProximitySensor.get_distance_in_inches(self) < .5:
-            break
-
 
 
 
