@@ -42,7 +42,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame, infrared_frame = get_shared_frames(main_frame, mqtt_sender)
+    teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame, infrared_frame, camera_frame = get_shared_frames(main_frame, mqtt_sender)
 
 
     # -------------------------------------------------------------------------
@@ -53,7 +53,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame, infrared_frame)
+    grid_frames(teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame, infrared_frame, camera_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -70,8 +70,9 @@ def get_shared_frames(main_frame, mqtt_sender):
     sensor_frame = shared_gui.get_sensor_frame(main_frame,mqtt_sender)
     soundsystem_frame = shared_gui.get_soundsystem_frame(main_frame,mqtt_sender)
     infrared_frame = get_m2_personal_infrared_frame(main_frame, mqtt_sender)
+    camera_frame = shared_gui.get_camera_frame(main_frame, mqtt_sender)
 
-    return teleop_frame,arm_frame,control_arm,sensor_frame,soundsystem_frame, infrared_frame
+    return teleop_frame,arm_frame,control_arm,sensor_frame,soundsystem_frame, infrared_frame, camera_frame
 
 def get_m2_personal_infrared_frame(main_frame,mqtt_sender):
     frame = ttk.Frame(main_frame, padding=5, borderwidth=5, relief="ridge")
@@ -111,13 +112,14 @@ def handle_tone_until_distance_is_less_than(mqtt_sender,distance_entry, speed_en
     print("will go until closer than: ", distance_entry.get())
     mqtt_sender.send_message('tone_until_distance_is_less_than', [distance_entry.get(), speed_entry.get(), frequency_entry.get(), rate_entry.get()])
 
-def grid_frames(teleop_frame, arm_frame, control_frame,sensor_frame, soundsystem_frame, infrared_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame,sensor_frame, soundsystem_frame, infrared_frame, camera_frame):
     teleop_frame.grid(row=0,column=0)
     arm_frame.grid(row=1,column=0)
     control_frame.grid(row=2,column=0)
     sensor_frame.grid(row=3,column=0)
     soundsystem_frame.grid(row=4,column=0)
     infrared_frame.grid(row=1, column=1)
+    camera_frame.grid(row=2, column=2)
 
 
 # -----------------------------------------------------------------------------
