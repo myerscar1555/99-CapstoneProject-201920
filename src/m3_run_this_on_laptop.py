@@ -88,7 +88,7 @@ def build_infrared_frame(window, mqtt_sender):
 
     pass
 
-def build_teleoperation_frame(window,mqtt_sender):
+def nasser_infrared_frame(window,mqtt_sender):
     """
     Constructs and returns a frame on the given window, where the frame
     has Entry and Button objects that control the EV3 robot's motion
@@ -101,7 +101,7 @@ def build_teleoperation_frame(window,mqtt_sender):
     frame.grid()
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="Teleoperation")
+    frame_label = ttk.Label(frame, text="IR Sensors")
     left_speed_label = ttk.Label(frame, text="Left wheel speed (0 to 100)")
     right_speed_label = ttk.Label(frame, text="Right wheel speed (0 to 100)")
 

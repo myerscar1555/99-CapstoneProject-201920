@@ -233,7 +233,7 @@ class DriveSystem(object):
         while True:
             distance = int(float(InfraredProximitySensor(4).get_distance_in_inches()))
             print(distance)
-            self.go(speed,speed)
+            self.go(-int(speed),-int(speed))
             if int(distance) > int(inches):
                 self.stop()
                 break
