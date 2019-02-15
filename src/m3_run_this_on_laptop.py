@@ -42,8 +42,8 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame,color_frame,infrared_frame = get_shared_frames(main_frame, mqtt_sender)
-
+    #teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame,color_frame,infrared_frame = get_shared_frames(main_frame, mqtt_sender)
+    infrared_frame = build_infrared_frame(main_frame,mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -53,7 +53,8 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_shared_frames(teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame,color_frame,infrared_frame)
+    #grid_shared_frames(teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame,color_frame,infrared_frame)
+    grid_my_frames(infrared_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -83,55 +84,52 @@ def grid_shared_frames(teleop_frame, arm_frame, control_frame,sensor_frame, soun
     color_frame.grid(row=0, column=1)
     infrared_frame.grid(row=1, column=1)
 
-def build_infrared_frame(window, mqtt_sender):
-    frame = ttk.Frame
 
-    pass
+def grid_my_frames(infrared_frame):
+    infrared_frame.grid(row=0,column=0)
 
-def nasser_infrared_frame(window,mqtt_sender):
-    """
-    Constructs and returns a frame on the given window, where the frame
-    has Entry and Button objects that control the EV3 robot's motion
-    by passing messages using the given MQTT Sender.
-      :type  window:       ttk.Frame | ttk.Toplevel
-      :type  mqtt_sender:  com.MqttClient
-    """
-    # Construct the frame to return:
-    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+def build_infrared_frame(window,mqtt_sender):
+    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
     frame.grid()
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="IR Sensors")
-    left_speed_label = ttk.Label(frame, text="Left wheel speed (0 to 100)")
-    right_speed_label = ttk.Label(frame, text="Right wheel speed (0 to 100)")
-
-    left_speed_entry = ttk.Entry(frame, width=8)
-    left_speed_entry.insert(0, "100")
-    right_speed_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
-    right_speed_entry.insert(0, "100")
-
-    forward_button = ttk.Button(frame, text="Forward")
-    backward_button = ttk.Button(frame, text="Backward")
-    left_button = ttk.Button(frame, text="Left")
-    right_button = ttk.Button(frame, text="Right")
-    stop_button = ttk.Button(frame, text="Stop")
+    frame_label = ttk.Label(frame, text="Infrared Sensor")
+    search_for_object  = ttk.Button(frame, text="search for object")
+    get_object = ttk.Button(frame, text="Pick up object in front")
+    go_until_distance_is_within = ttk.Button(frame, text="Goes until robot is within given range of object.")
+    speed_label = ttk.Label(frame, text="Robot Speed")
+    speed_entry = ttk.Entry(frame,width=8)
+    delta_entry = ttk.Entry(frame, width=8)
+    distance_entry = ttk.Entry(frame,width=8)
 
     # Grid the widgets:
-    frame_label.grid(row=0, column=1)
-    left_speed_label.grid(row=1, column=0)
-    right_speed_label.grid(row=1, column=2)
-    left_speed_entry.grid(row=2, column=0)
-    right_speed_entry.grid(row=2, column=2)
+    frame_label.grid(row=0,column=1)
+    search_for_object.grid(row=2, column=0)
+    get_object.grid(row=3,column=0)
+    go_until_distance_is_within.grid(row=2, column=2)
+    speed_label.grid(row=4,column=1)
+    distance_entry.grid(row=1,column=0)
+    delta_entry.grid(row=1,column=2)
+    speed_entry.grid(row=3,column=1)
 
-    forward_button.grid(row=3, column=1)
-    left_button.grid(row=4, column=0)
-    stop_button.grid(row=4, column=1)
-    right_button.grid(row=4, column=2)
-    backward_button.grid(row=5, column=1)
+
+    # Set the Button callbacks:
+    get_object["command"] = lambda: \
+        shared_gui.handle_go_backward_until_distance_is_greater_than(mqtt_sender,distance_entry,speed_entry)
+    search_for_object["command"] = lambda: \
+        shared_gui.handle_go_forward_until_distance_is_less_than(mqtt_sender,distance_entry,speed_entry)
+    go_until_distance_is_within["command"] = lambda: \
+        shared_gui.handle_go_until_distance_is_within(mqtt_sender, delta_entry, distance_entry, speed_entry)
 
     return frame
 
-#def grid_my_frames
+
+def handle_pick_up_object(mqtt_sender,distance_entry,speed_entry):
+    mqtt_sender.send_message('pick_up_object',
+                             [mqtt_sender,distance_entry,speed_entry])
+
+
+
 
 
 

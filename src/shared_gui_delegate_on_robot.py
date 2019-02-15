@@ -122,6 +122,9 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.left_motor.turn_on(50)
                 self.robot.drive_system.right_motor.turn_on(-50)
 
+    def blink_according_to_distance(self, distance_entry, speed_entry):
+        pass
+
     #  def quit(self):
     #    print("got quit")
     #   handle_quit()
