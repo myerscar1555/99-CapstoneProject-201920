@@ -88,7 +88,7 @@ def grid_shared_frames(teleop_frame, arm_frame, control_frame,sensor_frame, soun
     soundsystem_frame.grid(row=4,column=0)
     color_frame.grid(row=0, column=1)
     infrared_proximity_sensor_frame.grid(row=1, column=1)
-    camera_frame.grid(row=2, column=1)
+    # camera_frame.grid(row=2, column=1)
 
 def get_m1_personal_infrared_frame(window,mqtt_sender):
     frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
