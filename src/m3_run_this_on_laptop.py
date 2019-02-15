@@ -115,21 +115,21 @@ def build_infrared_frame(window,mqtt_sender):
 
     # Set the Button callbacks:
     get_object["command"] = lambda: \
-        shared_gui.handle_pick_up_object(mqtt_sender,distance_entry,speed_entry)
+        handle_pick_up_object(mqtt_sender,distance_entry,speed_entry)
     #search_for_object["command"] = lambda: \
     #    shared_gui.handle_go_forward_until_distance_is_less_than(mqtt_sender,distance_entry,speed_entry)
     search_for_object["command"] = lambda: \
-        shared_gui.handle_search_for_object(mqtt_sender, delta_entry, distance_entry, speed_entry)
+        handle_search_for_object(mqtt_sender, delta_entry, speed_entry)
 
     return frame
 
 
 def handle_pick_up_object(mqtt_sender,distance_entry,speed_entry):
-    mqtt_sender.send_message('blink_according_to_distance',
-                             [mqtt_sender,distance_entry,speed_entry])
+    mqtt_sender.send_message('pick_up_object',
+                             [distance_entry.get(),speed_entry.get()])
 
 def handle_search_for_object(mqtt_sender,delta_entry,speed_entry):
-    mqtt_sender.send_message('search_for_object', [mqtt_sender,delta_entry,speed_entry])
+    mqtt_sender.send_message('search_for_object', [delta_entry.get(),speed_entry.get()])
 
 
 
