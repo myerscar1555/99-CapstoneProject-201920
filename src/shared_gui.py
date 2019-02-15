@@ -336,6 +336,8 @@ def get_camera_frame(window, mqtt_sender):
     clockwise["command"] = lambda: handle_spin_clockwise_until_sees_object(mqtt_sender, speed_entry, area_entry)
     counterclockwise["command"] = lambda: handle_spin_counterclockwise_until_sees_object(mqtt_sender, speed_entry, area_entry)
 
+    return frame
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
