@@ -126,18 +126,29 @@ class DelegateThatRecieves(object):
         while True:
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             self.robot.drive_system.go(int(speed_entry),int(speed_entry))
-            print(distance)
-            if distance < int(distance_entry):
-                self.robot.drive_system.stop()
-                self.robot.arm_and_claw.raise_arm()
-                self.robot.arm_and_claw.lower_arm()
-                break
+            blink_rate = .1
+            blink_rate_increase = .05
+
+            if distance < 80:
+
+                self.robot.led_system.left_led.turn_on()
+                self.robot.led_system.left_led.turn_off()
+                time.sleep((blink_rate) / (80 - int(distance)) * blink_rate_increase )
+                self.robot.led_system.right_led.turn_on()
+                self.robot.led_system.right_led.turn_off()
+                print(distance)
+                if distance < int(distance_entry):
+                    self.robot.drive_system.stop()
+                    self.robot.arm_and_claw.raise_arm()
+                    self.robot.arm_and_claw.lower_arm()
+                    break
 
     def search_for_object(self,delta_entry,speed_entry):
         while True:
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             if distance < int(delta_entry):
                 self.robot.sound_system.speech_maker.speak("I found alpha")
+                self.robot.drive_system.stop()
                 break
             else:
                 self.robot.drive_system.left_motor.turn_on(int(speed_entry))
