@@ -6,7 +6,7 @@
     and Michael Johnson, Carter Meyers, Nasser Hegar.
   Winter term, 2018-2019.
 """
-
+import time
 
 class DelegateThatRecieves(object):
     def __init__(self, robot):
@@ -109,7 +109,7 @@ class DelegateThatRecieves(object):
             if distance < 60:
                 self.robot.drive_system.go(int(speed_entry), int(speed_entry))
                 print(distance)
-                self.robot.sound_system.tone_maker.play_tone(frequency_entry, 500)
+                self.robot.sound_system.tone_maker.play_tone(int(frequency_entry), 500)
                 time.sleep(((60 - int(distance)) * int(rate_entry)))
                 if distance < distance_entry:
                     self.robot.drive_system.stop()
