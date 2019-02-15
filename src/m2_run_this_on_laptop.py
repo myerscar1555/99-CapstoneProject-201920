@@ -118,8 +118,8 @@ def grid_frames(teleop_frame, arm_frame, control_frame,sensor_frame, soundsystem
     control_frame.grid(row=2,column=0)
     sensor_frame.grid(row=3,column=0)
     soundsystem_frame.grid(row=4,column=0)
-    infrared_frame.grid(row=1, column=1)
-    camera_frame.grid(row=2, column=2)
+    infrared_frame.grid(row=0, column=1)
+    camera_frame.grid(row=1, column=1)
 
 
 # -----------------------------------------------------------------------------
