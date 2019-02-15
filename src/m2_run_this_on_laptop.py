@@ -82,7 +82,7 @@ def get_m2_personal_infrared_frame(main_frame,mqtt_sender):
     beep_according_to_distance = ttk.Button(frame, text="Frequency raises at rate based on how far from object")
     beep_label = ttk.Label(frame, text="Initial Frequency")
     frequency_entry = ttk.Entry(frame, width=8)
-    rate_label = ttk.Label(frame, text="Rate of Increase")
+    rate_label = ttk.Label(frame, text="Rate of Increase (between 1 and 10)")
     rate_entry = ttk.Entry(frame, width=8)
     speed_label = ttk.Label(frame, text='Speed of robot')
     speed_entry = ttk.Entry(frame, width=8)
