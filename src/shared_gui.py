@@ -446,11 +446,11 @@ def handle_exit(mqtt_sender):
 ###############################################################################
 # Handlers for Buttons in the TeleOperation frame.
 ###############################################################################
-def handle_time(mqtt_sender,time_entry_box,speed_entry_box):
+def handle_time(mqtt_sender,seconds_entry_box,speed_entry_box):
 
-    print("moving for time")
+    print("moving for", seconds_entry_box.get(), 'seconds')
     mqtt_sender.send_message("go_straight_for_inches_using_time",
-                             [time_entry_box.get(),speed_entry_box.get()])
+                             [seconds_entry_box.get(), speed_entry_box.get()])
 
 def handle_inches(mqtt_sender,inches_entry_box,speed_entry_box):
 
