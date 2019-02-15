@@ -297,7 +297,7 @@ class DriveSystem(object):
         print(b)
 
 
-    def spin_clockwise_until_sees_object(self, speed, area):
+    def spin_clockwise_until_sees_object(self, speed):
         """
         Spins clockwise at the given speed until the camera sees an object
         of the trained color whose area is at least the given area.
@@ -307,12 +307,12 @@ class DriveSystem(object):
             b = self.sensor_system.camera.get_biggest_blob()
             self.right_motor.turn_on((-1) * speed)
             self.left_motor.turn_on(speed)
-            if (b.width * b.height) >= area:
+            if b.width > 150 and b.width<170:
                 self.stop()
                 break
 
 
-    def spin_counterclockwise_until_sees_object(self, speed, area):
+    def spin_counterclockwise_until_sees_object(self, speed):
         """
         Spins counter-clockwise at the given speed until the camera sees an object
         of the trained color whose area is at least the given area.
@@ -322,7 +322,7 @@ class DriveSystem(object):
             b = self.sensor_system.camera.get_biggest_blob()
             self.right_motor.turn_on(speed)
             self.left_motor.turn_on((-1) * speed)
-            if (b.width * b.height) >= area:
+            if b.width > 150 and b.width<170:
                 self.stop()
                 break
 

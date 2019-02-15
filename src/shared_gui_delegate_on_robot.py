@@ -7,6 +7,7 @@
   Winter term, 2018-2019.
 """
 import time
+import rosebot
 
 class DelegateThatRecieves(object):
     def __init__(self, robot):
@@ -154,7 +155,5 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.left_motor.turn_on(int(speed_entry))
                 self.robot.drive_system.right_motor.turn_on(-int(speed_entry))
 
-
-    #  def quit(self):
     #    print("got quit")
     #   handle_quit()
