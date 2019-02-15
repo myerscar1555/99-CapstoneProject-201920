@@ -93,11 +93,14 @@ class DelegateThatRecieves(object):
     def beep_according_to_distance(self, beep_rate, beep_rate_increase):
         while True:
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-            if distance < 48:
+            if distance < 60:
                 self.robot.drive_system.go(50, 50)
-                self.robot.sound_system.beeper.beep().wait(beep_rate / (distance * beep_rate_increase))
-                if distance < 2:
+                self.robot.sound_system.beeper.beep()
+                time.sleep(beep_rate / (distance * beep_rate_increase))
+                if distance < 4:
                     self.robot.drive_system.stop()
+                    self.robot.arm_and_claw.raise_arm()
+                    self.robot.arm_and_claw.lower_arm()
                     break
             else:
                 self.robot.drive_system.left_motor.turn_on(50)
