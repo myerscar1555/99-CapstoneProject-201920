@@ -324,19 +324,160 @@ def get_camera_frame(window, mqtt_sender):
 
     counterclockwise = ttk.Button(frame, text="Turn CounterClockwise until sees object")
     clockwise = ttk.Button(frame, text="Turn Clockwise until sees object")
+    m1_feature9 = ttk.Button(frame, text="m1 feature 9")
+    m2_feature9 = ttk.Button(frame, text="m2 feature 9")
+    m3_feature9 = ttk.Button(frame, text="m3 feature 9")
 
     speed_label = ttk.Label(frame, text='Enter Speed:')
     speed_entry = ttk.Entry(frame, width=8)
     speed_label.grid(row=2, column=0)
     speed_entry.grid(row=3, column=0)
 
+    beep_label = ttk.Label(frame, text='Enter beeps:')
+    beep_entry = ttk.Entry(frame, width=8)
+    beep_label.grid(row=7, column=0)
+    beep_entry.grid(row=8, column=0)
+
+    rate_label = ttk.Label(frame, text='Enter rate:')
+    rate_entry = ttk.Entry(frame, width=8)
+    rate_label.grid(row=9, column=0)
+    rate_entry.grid(row=10, column=0)
+
+    distance_label = ttk.Label(frame, text='Enter Distance:')
+    distance_entry = ttk.Entry(frame, width=8)
+    distance_label.grid(row=11, column=0)
+    distance_entry.grid(row=12, column=0)
+
+    frequency_label = ttk.Label(frame, text='Enter Frequency:')
+    frequency_entry = ttk.Entry(frame, width=8)
+    frequency_label.grid(row=13, column=0)
+    frequency_entry.grid(row=14, column=0)
+
     counterclockwise.grid(row=0, column=0)
     clockwise.grid(row=1, column=0)
+    m1_feature9.grid(row=4, column=0)
+    m2_feature9.grid(row=5,column=0)
+    m3_feature9.grid(row=6,column=0)
 
     clockwise["command"] = lambda: handle_spin_clockwise_until_sees_object(mqtt_sender, speed_entry)
     counterclockwise["command"] = lambda: handle_spin_counterclockwise_until_sees_object(mqtt_sender, speed_entry)
+    m1_feature9["command"] = lambda: handle_beep_according_to_distance(mqtt_sender, beep_entry, rate_entry)
+    m2_feature9["command"] = lambda: handle_tone_until_distance_is_less_than(mqtt_sender, distance_entry, speed_entry, frequency_entry, rate_entry)
+    m3_feature9["command"] = lambda: handle_pick_up_object(mqtt_sender, distance_entry, speed_entry)
 
     return frame
+
+def get_m1_personal_infrared_frame(window,mqtt_sender):
+    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="m1 Personal")
+    beep_according_to_distance = ttk.Button(frame, text="Beeps at rate based on how far from object")
+    beep_label = ttk.Label(frame, text="Initial Beep Speed")
+    beep_entry = ttk.Entry(frame, width=8)
+    rate_label = ttk.Label(frame, text="Rate of Increase")
+    rate_entry = ttk.Entry(frame, width=8)
+
+    # Grid the widgets:
+    frame_label.grid(row=1, column=1)
+    beep_according_to_distance.grid(row=2, column=0)
+    beep_label.grid(row=4, column=1)
+    rate_entry.grid(row=3, column=2)
+    rate_label.grid(row=4, column=2)
+    beep_entry.grid(row=3, column=1)
+
+    # Set the Button callbacks:
+    beep_according_to_distance["command"] = lambda: handle_beep_according_to_distance(mqtt_sender, beep_entry, rate_entry)
+
+    return frame
+
+def handle_beep_according_to_distance(mqtt_sender, beep_entry, rate_entry):
+    print("Will beep at: ", beep_entry.get())
+    mqtt_sender.send_message('beep_according_to_distance', [beep_entry.get(), rate_entry.get()])
+
+def build_infrared_frame(window,mqtt_sender):
+    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Infrared Sensor")
+    #search_for_object  = ttk.Button(frame, text="search for object")
+    get_object = ttk.Button(frame, text="Pick up object in front")
+    search_for_object = ttk.Button(frame, text="search for object within range")
+    speed_label = ttk.Label(frame, text="Robot Speed")
+    speed_entry = ttk.Entry(frame,width=8)
+    delta_entry = ttk.Entry(frame, width=8)
+    distance_entry = ttk.Entry(frame,width=8)
+
+    # Grid the widgets:
+    frame_label.grid(row=0,column=1)
+    #search_for_object.grid(row=2, column=0)
+    get_object.grid(row=3,column=0)
+    search_for_object.grid(row=2, column=2)
+    speed_label.grid(row=4,column=1)
+    distance_entry.grid(row=1,column=0)
+    delta_entry.grid(row=1,column=2)
+    speed_entry.grid(row=3,column=1)
+
+
+    # Set the Button callbacks:
+    get_object["command"] = lambda: \
+        handle_pick_up_object(mqtt_sender,distance_entry,speed_entry)
+    #search_for_object["command"] = lambda: \
+    #    shared_gui.handle_go_forward_until_distance_is_less_than(mqtt_sender,distance_entry,speed_entry)
+    search_for_object["command"] = lambda: \
+        handle_search_for_object(mqtt_sender, delta_entry, speed_entry)
+
+    return frame
+
+
+def handle_pick_up_object(mqtt_sender,distance_entry,speed_entry):
+    mqtt_sender.send_message('pick_up_object',
+                             [distance_entry.get(),speed_entry.get()])
+
+def handle_search_for_object(mqtt_sender,delta_entry,speed_entry):
+    mqtt_sender.send_message('search_for_object', [delta_entry.get(),speed_entry.get()])
+
+
+
+def get_m2_personal_infrared_frame(main_frame,mqtt_sender):
+    frame = ttk.Frame(main_frame, padding=5, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Michael Personal")
+    beep_according_to_distance = ttk.Button(frame, text="Frequency raises at rate based on how far from object")
+    beep_label = ttk.Label(frame, text="Initial Frequency")
+    frequency_entry = ttk.Entry(frame, width=8)
+    rate_label = ttk.Label(frame, text="Rate of Increase (between 1 and 10)")
+    rate_entry = ttk.Entry(frame, width=8)
+    speed_label = ttk.Label(frame, text='Speed of robot')
+    speed_entry = ttk.Entry(frame, width=8)
+    distance_label = ttk.Label(frame, text='Distance to stop')
+    distance_entry = ttk.Entry(frame, width=8)
+
+
+    # Grid the widgets:
+    frame_label.grid(row=1, column=1)
+    beep_according_to_distance.grid(row=2, column=0)
+    beep_label.grid(row=3, column=0)
+    rate_entry.grid(row=4, column=1)
+    rate_label.grid(row=4, column=0)
+    frequency_entry.grid(row=3, column=1)
+    speed_label.grid(row=6, column=0)
+    speed_entry.grid(row=6, column=1)
+    distance_label.grid(row=7, column=0)
+    distance_entry.grid(row=7, column=1)
+
+    # Set the Button callbacks:
+    beep_according_to_distance["command"] = lambda: handle_tone_until_distance_is_less_than(mqtt_sender, distance_entry, speed_entry, frequency_entry, rate_entry)
+
+    return frame
+
+def handle_tone_until_distance_is_less_than(mqtt_sender,distance_entry, speed_entry, frequency_entry, rate_entry):
+    print("will go until closer than: ", distance_entry.get())
+    mqtt_sender.send_message('tone_until_distance_is_less_than', [distance_entry.get(), speed_entry.get(), frequency_entry.get(), rate_entry.get()])
 
 ###############################################################################
 ###############################################################################

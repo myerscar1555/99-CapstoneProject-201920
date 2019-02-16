@@ -64,11 +64,11 @@ class DelegateThatRecieves(object):
     def speak(self, phrase):
         self.robot.sound_system.speech_maker.speak(phrase).wait()
 
-    def spin_clockwise_until_sees_object(self, speed, area):
-        self.robot.drive_system.spin_clockwise_until_sees_object(int(speed), int(area))
+    def spin_clockwise_until_sees_object(self, speed):
+        self.robot.drive_system.spin_clockwise_until_sees_object(int(speed))
 
-    def spin_counterclockwise_until_sees_object(self, speed, area):
-        self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), int(area))
+    def spin_counterclockwise_until_sees_object(self, speed):
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed))
 
     def find_color(self, color):
 
