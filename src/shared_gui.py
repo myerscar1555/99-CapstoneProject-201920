@@ -363,7 +363,7 @@ def get_camera_frame(window, mqtt_sender):
     counterclockwise["command"] = lambda: handle_spin_counterclockwise_until_sees_object(mqtt_sender, speed_entry)
     m1_feature9["command"] = lambda: handle_beep_according_to_distance(mqtt_sender, beep_entry, rate_entry)
     m2_feature9["command"] = lambda: handle_tone_until_distance_is_less_than(mqtt_sender, distance_entry, speed_entry, frequency_entry, rate_entry)
-    m3_feature9["command"] = lambda: handle_pick_up_object(mqtt_sender, distance_entry, speed_entry)
+    m3_feature9["command"] = lambda: handle_m3_feature_9(mqtt_sender, distance_entry, speed_entry)
 
     return frame
 
@@ -688,3 +688,6 @@ def handle_spin_counterclockwise_until_sees_object(mqtt_sender, speed_entry):
     print("Spins counterclockwise until sees object")
     mqtt_sender.send_message('spin_counterclockwise_until_sees_object', [speed_entry.get()])
 
+def handle_m3_feature_9(mqtt_sender, distance_entry, speed_entry):
+    mqtt_sender.send_message('search_for_object',[70,speed_entry.get()])
+    mqtt_sender.send_message('pick_up_object', [distance_entry.get(), speed_entry.get()])
