@@ -485,7 +485,7 @@ def get_knock_off_frame(window,mqtt_sender):
     number_label = ttk.Label(frame, text="Items to knock off")
     number_entry = ttk.Entry(frame, width=8)
     aggression_label = ttk.Label(frame, text="Aggression of push")
-    aggression_slider = ttk.Scale()
+    aggression_slider = ttk.Scale(frame)
 
 
     # Grid the widgets:
