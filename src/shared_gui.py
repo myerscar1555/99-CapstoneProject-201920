@@ -360,7 +360,7 @@ def get_camera_frame(window, mqtt_sender):
     m3_feature9.grid(row=6,column=0)
 
     clockwise["command"] = lambda: handle_spin_clockwise_until_sees_object(mqtt_sender, speed_entry)
-    counterclockwise["command"] = lambda: handle_spin_counterclockwise_until_sees_object(mqtt_sender, speed_entry)
+    counterclockwise["command"] = lambda: handle_search_for_object(mqtt_sender,beep_entry, speed_entry)
     m1_feature9["command"] = lambda: handle_beep_according_to_distance(mqtt_sender, beep_entry, rate_entry)
     m2_feature9["command"] = lambda: handle_tone_until_distance_is_less_than(mqtt_sender, distance_entry, speed_entry, frequency_entry, rate_entry)
     m3_feature9["command"] = lambda: handle_m3_feature_9(mqtt_sender, distance_entry, speed_entry)
@@ -472,6 +472,32 @@ def get_m2_personal_infrared_frame(main_frame,mqtt_sender):
 
     # Set the Button callbacks:
     beep_according_to_distance["command"] = lambda: handle_tone_until_distance_is_less_than(mqtt_sender, distance_entry, speed_entry, frequency_entry, rate_entry)
+
+    return frame
+
+def get_knock_off_frame(window,mqtt_sender):
+    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Knock Off")
+    knock_off_table = ttk.Button(frame, text="Pushes objects off of surfaces")
+    number_label = ttk.Label(frame, text="Items to knock off")
+    number_entry = ttk.Entry(frame, width=8)
+    aggression_label = ttk.Label(frame, text="Aggression of push")
+    aggression_slider = ttk.Scale()
+
+
+    # Grid the widgets:
+    frame_label.grid(row=1, column=1)
+    knock_off_table.grid(row=2, column=1)
+    number_entry.grid(row=3, column=0)
+    number_label.grid(row=4, column=0)
+    aggression_slider.grid(row=3, column=2)
+    aggression_label.grid(row=4, column=2)
+
+    # Set the Button callbacks:
+    knock_off_table["command"] = lambda: handle_knock_off(mqtt_sender, aggression_slider, number_entry)
 
     return frame
 
@@ -691,3 +717,13 @@ def handle_spin_counterclockwise_until_sees_object(mqtt_sender, speed_entry):
 def handle_m3_feature_9(mqtt_sender, distance_entry, speed_entry):
     mqtt_sender.send_message('search_for_object',[70,speed_entry.get()])
     mqtt_sender.send_message('pick_up_object', [distance_entry.get(), speed_entry.get()])
+
+
+
+###############################################################################
+# Handlers for Buttons in the Camera frame.
+###############################################################################
+
+def handle_knock_off(mqtt_sender, aggression_slider, number_entry):
+    print("knocks off", number_entry, "number of items")
+    mqtt_sender.send_message('knock_off_object', [aggression_slider.get(), number_entry.get()])

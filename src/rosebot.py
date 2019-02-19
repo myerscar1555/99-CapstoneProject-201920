@@ -307,7 +307,7 @@ class DriveSystem(object):
             b = self.sensor_system.camera.get_biggest_blob()
             self.right_motor.turn_on((-1) * speed)
             self.left_motor.turn_on(speed)
-            if b.width > 150 and b.width<170:
+            if (b.width * b.height) >= 3:
                 self.stop()
                 break
 
@@ -322,7 +322,7 @@ class DriveSystem(object):
             b = self.sensor_system.camera.get_biggest_blob()
             self.right_motor.turn_on(speed)
             self.left_motor.turn_on((-1) * speed)
-            if b.width > 150 and b.width<170:
+            if (b.width * b.height) >= 3:
                 self.stop()
                 break
 

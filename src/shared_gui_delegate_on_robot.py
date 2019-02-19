@@ -157,3 +157,28 @@ class DelegateThatRecieves(object):
 
     #    print("got quit")
     #   handle_quit()
+
+    def knock_off_object(self, aggression_slider, number_entry):
+        count =0
+        while True:
+            distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            if distance < 15:
+                self.robot.drive_system.go(30, 30)
+                if distance<4:
+                    self.robot.drive_system.stop()
+                    self.robot.drive_system.go(-30 - aggression_slider, 30 + aggression_slider)
+                    count = count + 1
+                    if count == number_entry:
+                        break
+            self.robot.drive_system.go(30, 30)
+            time.sleep(3)
+            self.robot.drive_system.stop()
+            self.robot.drive_system.go(-30, 30)
+            time.sleep(1)
+            self.robot.drive_system.go(30, -30)
+            time.sleep(2)
+            self.robot.drive_system.go(-30, 30)
+            time.sleep(1)
+            self.robot.drive_system.stop()
+
+
