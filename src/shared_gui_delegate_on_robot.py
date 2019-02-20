@@ -158,6 +158,10 @@ class DelegateThatRecieves(object):
     #    print("got quit")
     #   handle_quit()
 
+###############################################################################
+# Robot drives forward and knocks off a number of objects as specified by the
+# User in the GUI and can vary its force by a slider in the GUI
+###############################################################################
     def knock_off_object(self, aggression_slider, number_entry):
         while True:
             for k in range(int(number_entry)):
@@ -167,8 +171,10 @@ class DelegateThatRecieves(object):
             self.robot.stop()
             break
 
-
-
+###############################################################################
+# Robot drives up to the door and meows to be let in. Won't stop until the door
+# is open. 
+###############################################################################
     def meow_at_door(self, number_entry):
         self.robot.drive_system.go(100, 100)
         count = 0
@@ -193,6 +199,9 @@ class DelegateThatRecieves(object):
                 if times == int(number_entry):
                     break
 
+###############################################################################
+# Robot picks up bowl, and brings it to the user and asks for food
+###############################################################################
     def ask_for_food(self):
         count = 0
         self.robot.arm_and_claw.raise_arm()
@@ -206,6 +215,10 @@ class DelegateThatRecieves(object):
             if count >= 1:
                 break
 
+###############################################################################
+# Robot lets you pet it a certain number of times before running away. The
+# number of times is specified by the user in the GUI
+###############################################################################
     def get_pet(self, number_entry):
         count = 0
         while True:
@@ -218,6 +231,9 @@ class DelegateThatRecieves(object):
                     self.robot.drive_system.stop()
                     break
 
+###############################################################################
+# Robot catches a mouse by using the camera to identify it
+###############################################################################
     def follow_mouse(self):
         while True:
             b = self.robot.sensor_system.camera.get_biggest_blob()
