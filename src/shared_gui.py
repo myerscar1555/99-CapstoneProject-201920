@@ -586,7 +586,7 @@ def get_petting_frame(window,mqtt_sender):
 
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Get Pet")
-    get_pet = ttk.Button(frame, text="Meows at door until you let it out")
+    get_pet = ttk.Button(frame, text="Lets you pet it a number of times")
     number_label = ttk.Label(frame, text="Times to get pet before running away")
     number_entry = ttk.Entry(frame, width=8)
 
