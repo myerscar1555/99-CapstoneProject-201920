@@ -216,11 +216,10 @@ class DelegateThatRecieves(object):
         count = 0
         while True:
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-            print(distance)
             if distance <= 5:
                 self.robot.sound_system.speech_maker.speak("Thank you sir")
                 count = count + 1
-                if count >= int(number_entry):
+                if count >= number_entry:
                     self.robot.drive_system.go(-100, -100)
                     break
 
@@ -247,17 +246,20 @@ class DelegateThatRecieves(object):
             self.robot.sound_system.speech_maker.speak("Rattata dealt 10 damage!")
         self.robot.drive_system.go_backward_until_distance_is_greater_than(70,100)
 
+
+    def tackle(self):
+        self.robot.drive_system.go_forward_until_distance_is_less_than(10,50)
+        self.robot.drive_system.go_backward_until_distance_is_greater_than(70,100)
+
     def defense_curl(self,curl_entry):
         self.robot.drive_system.go(100,-100)
-        time.sleep(float(curl_entry * 2.3))
+        time.sleep(curl_entry)
         self.robot.drive_system.stop()
-        self.robot.sound_system.speech_maker.speak("Rattata's defense increased")
 
 
-    def scratch(self,scratches_entry):
-        for _ in range(scratches_entry):
-            self.robot.arm_and_claw.raise_arm()
-            self.robot.arm_and_claw.lower_arm()
+    def scratch(self):
+        self.robot.arm_and_claw.raise_arm()
+        self.robot.arm_and_claw.lower_arm()
         if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 10:
             self.robot.sound_system.speech_maker.speak("Rattata missed!")
         else:
@@ -309,7 +311,16 @@ class DelegateThatRecieves(object):
         self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
         self.robot.drive_system.go(50, -50)
         time.sleep(2)
-        
+        self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
+        self.robot.drive_system.go(50, -50)
+        time.sleep(2)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
+        self.robot.drive_system.go(50, -50)
+        time.sleep(2)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
+        self.robot.drive_system.go(50, -50)
+        time.sleep(2)
+        self.robot.drive_system.stop()
 
     def run_and_hide(self):
         while True:
