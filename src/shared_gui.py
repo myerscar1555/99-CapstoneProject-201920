@@ -747,9 +747,9 @@ def handle_m3_feature_9(mqtt_sender, distance_entry, speed_entry):
 ###############################################################################
 
 def handle_knock_off(mqtt_sender, aggression_slider, number_entry):
-    print("knocks off ", number_entry, " number of items")
+    print("knocks off", number_entry.get(), "items")
     mqtt_sender.send_message('knock_off_object', [aggression_slider.get(), number_entry.get()])
 
 def handle_meow_at_door(mqtt_sender, number_entry):
-    print("Wants in/out ", number_entry, "number of times")
+    print("Wants in/out", number_entry.get(), "times")
     mqtt_sender.send_message('meow at door', [number_entry.get()])
