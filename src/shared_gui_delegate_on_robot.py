@@ -218,6 +218,17 @@ class DelegateThatRecieves(object):
             if count == 10:
                 break
 
+    def get_pet(self, number_entry):
+        count = 0
+        while True:
+            distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            if distance <= 5:
+                self.robot.sound_system.speech_maker.speak("Thank you sir")
+                count = count + 1
+                if count >= number_entry:
+                    self.robot.drive_system.go_backward_until_distance_is_greater_than(60, 100)
+                    break
+
     def growl(self):
         self.robot.sound_system.speech_maker.speak("Roar. Be Afraid")
 
