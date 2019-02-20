@@ -61,7 +61,7 @@ def main():
 
     root.mainloop()
 
-
+# This is all of my self-made frames, where it creates them, grids them, and has the handler for sending data to the mqtt
 
 def get_shared_frames(main_frame, mqtt_sender):
     teleop_frame = shared_gui.get_teleoperation_frame(main_frame,mqtt_sender)
