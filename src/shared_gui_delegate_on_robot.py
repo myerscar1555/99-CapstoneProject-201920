@@ -265,7 +265,6 @@ class DelegateThatRecieves(object):
         else:
             self.robot.sound_system.speech_maker.speak("Rattata dealt 5 damage! It's not very effective")
 
-
     def stack_blocks(self, speed):
         while True:
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
@@ -300,7 +299,7 @@ class DelegateThatRecieves(object):
                     self.robot.drive_system.stop()
                     self.robot.arm_and_claw.raise_arm()
                     self.robot.drive_system.go(50, -50)
-                    time.sleep(1)
+                    time.sleep(2)
                     self.robot.drive_system.stop()
                     self.robot.arm_and_claw.lower_arm()
                     break
@@ -309,25 +308,25 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.right_motor.turn_on(-50)
 
     def walle_fun(self, speed):
-        self.robot.drive_system.go_for_inches(12, int(speed))
+        self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
         self.robot.drive_system.go(50, -50)
-        time.sleep(1)
-        self.robot.drive_system.go_for_inches(12, int(speed))
+        time.sleep(2)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
         self.robot.drive_system.go(50, -50)
-        time.sleep(1)
-        self.robot.drive_system.go_for_inches(12, int(speed))
+        time.sleep(2)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
         self.robot.drive_system.go(50, -50)
-        time.sleep(1)
-        self.robot.drive_system.go_for_inches(12, int(speed))
+        time.sleep(2)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
         self.robot.drive_system.go(50, -50)
-        time.sleep(1)
+        time.sleep(2)
         self.robot.drive_system.stop()
 
     def run_and_hide(self):
         while True:
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             if distance < 10:
-                self.robot.sound_system.speech_maker.speak("NO, LEAVE ME BE. I mean WALL E")
+                self.robot.sound_system.speech_maker.speak("NO, LEAVE ME BE")
                 self.robot.drive_system.go(-100, -100)
                 self.robot.drive_system.go(-25, 25)
                 time.sleep(2)
