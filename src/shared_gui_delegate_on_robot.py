@@ -263,6 +263,7 @@ class DelegateThatRecieves(object):
 
 
     def scratch(self, scratches_entry):
+        self.robot.drive_system.go_forward_until_distance_is_less_than(10,50)
         for _ in range(scratches_entry):
             self.robot.arm_and_claw.raise_arm()
             self.robot.arm_and_claw.lower_arm()
