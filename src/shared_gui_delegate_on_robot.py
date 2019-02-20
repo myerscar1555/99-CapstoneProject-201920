@@ -159,13 +159,11 @@ class DelegateThatRecieves(object):
     #   handle_quit()
 
     def knock_off_object(self, aggression_slider, number_entry):
-        count =0
         while True:
-            distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             for k in range(int(number_entry)):
                 self.robot.drive_system.go_straight_for_inches_using_encoder(12, 50)
-                self.robot.drive_system.go(-30 - (int(aggression_slider) * 50), 30 + (int(aggression_slider) * 50))
-                time.sleep(4)
+                self.robot.drive_system.go(-50 - (int(aggression_slider) * 50), 50 + (int(aggression_slider) * 50))
+                time.sleep(3)
             break
 
 
