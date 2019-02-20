@@ -596,6 +596,24 @@ def get_petting_frame(window,mqtt_sender):
 
     return frame
 
+def get_follow_mouse_frame(window,mqtt_sender):
+    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Follow Mouse")
+    follow_mouse = ttk.Button(frame, text="Follows a mouse around")
+
+
+    # Grid the widgets:
+    frame_label.grid(row=1, column=1)
+    follow_mouse.grid(row=2, column=1)
+
+    # Set the Button callbacks:
+    follow_mouse["command"] = lambda: handle_follow_mouse(mqtt_sender)
+
+    return frame
+
 def handle_tone_until_distance_is_less_than(mqtt_sender,distance_entry, speed_entry, frequency_entry, rate_entry):
     print("will go until closer than: ", distance_entry.get())
     mqtt_sender.send_message('tone_until_distance_is_less_than', [distance_entry.get(), speed_entry.get(), frequency_entry.get(), rate_entry.get()])
@@ -834,6 +852,10 @@ def handle_ask_for_food(mqtt_sender):
 def handle_get_pet(mqtt_sender, number_entry):
     print("Gets pet", number_entry.get(), "times before running away")
     mqtt_sender.send_message('get_pet', [number_entry.get()])
+
+def handle_follow_mouse(mqtt_sender):
+    print("Follows a mouse around")
+    mqtt_sender.send_message('follow_mouse')
 
 ###############################################################################
 # Handlers for Buttons in the Nasser's personal frame.

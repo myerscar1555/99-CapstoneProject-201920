@@ -25,3 +25,25 @@ def get_petting_frame(window,mqtt_sender):
 def handle_get_pet(mqtt_sender, number_entry):
     print("Gets pet", number_entry.get(), "times before running away")
     mqtt_sender.send_message('get_pet', [number_entry.get()])
+
+def get_follow_mouse_frame(window,mqtt_sender):
+    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Follow Mouse")
+    follow_mouse = ttk.Button(frame, text="Follows a mouse around")
+
+
+    # Grid the widgets:
+    frame_label.grid(row=1, column=1)
+    follow_mouse.grid(row=2, column=1)
+
+    # Set the Button callbacks:
+    follow_mouse["command"] = lambda: handle_follow_mouse(mqtt_sender)
+
+    return frame
+
+def handle_follow_mouse(mqtt_sender):
+    print("Follows a mouse around")
+    mqtt_sender.send_message('follow_mouse')
