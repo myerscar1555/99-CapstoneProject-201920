@@ -211,7 +211,7 @@ class DelegateThatRecieves(object):
             if self.robot.sensor_system.touch_sensor.is_pressed() == True:
                 self.robot.sound_system.speech_maker.speak("Thank you sir")
                 count = count + 1
-                if count >= number_entry:
+                if count >= int(number_entry):
                     self.robot.drive_system.go(-100, -100)
                     time.sleep(3)
                     self.robot.drive_system.stop()
