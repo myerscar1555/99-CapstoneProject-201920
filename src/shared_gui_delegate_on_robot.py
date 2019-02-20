@@ -337,7 +337,7 @@ class DelegateThatRecieves(object):
             if distance < 10:
                 self.robot.sound_system.speech_maker.speak("NO, LEAVE ME BE")
                 self.robot.drive_system.go(-100, -100)
-                time.sleep(3)
+                time.sleep(5)
                 self.robot.drive_system.go(-50, 50)
                 time.sleep(1.5)
                 self.robot.drive_system.go(100, 100)
@@ -345,7 +345,7 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.go(-50, 50)
                 time.sleep(1.5)
                 self.robot.drive_system.go(100, 100)
-                time.sleep(1)
+                time.sleep(5)
                 self.robot.drive_system.stop()
                 break
 
