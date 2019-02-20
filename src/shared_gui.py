@@ -483,7 +483,7 @@ def build_rattata(window,mqtt_sender):
 
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Top Percentile Rattata")
-    quick_attack_button = ttk.Button(frame, text="quick attack")
+    quick_attack_button = ttk.Button(frame, text="quick attack and speed")
     defense_curl_button = ttk.Button(frame, text="defense curl")
     scratch_button = ttk.Button(frame, text="scratch")
     growl_button = ttk.Button(frame, text="growl")
