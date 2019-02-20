@@ -108,6 +108,7 @@ def get_m2_personal_infrared_frame(main_frame,mqtt_sender):
 
     return frame
 
+
 def handle_tone_until_distance_is_less_than(mqtt_sender,distance_entry, speed_entry, frequency_entry, rate_entry):
     print("will go until closer than: ", distance_entry.get())
     mqtt_sender.send_message('tone_until_distance_is_less_than', [distance_entry.get(), speed_entry.get(), frequency_entry.get(), rate_entry.get()])
