@@ -208,8 +208,7 @@ class DelegateThatRecieves(object):
     def get_pet(self, number_entry):
         count = 0
         while True:
-            distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-            if distance <= 5:
+            if self.robot.sensor_system.touch_sensor.is_pressed() == True:
                 self.robot.sound_system.speech_maker.speak("Thank you sir")
                 count = count + 1
                 if count >= number_entry:
