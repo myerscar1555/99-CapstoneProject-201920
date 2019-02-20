@@ -868,7 +868,7 @@ def handle_follow_mouse(mqtt_sender):
 
 def handle_quick_attack(mqtt_sender,scale_entry):
     print("Rattata used quick attack")
-    mqtt_sender.send_message('quick_attack', [scale_entry.get() * 100])
+    mqtt_sender.send_message('quick_attack', [(scale_entry.get() * 100)])
 
 def handle_growl(mqtt_sender):
     print("Rattata used growl")
