@@ -808,3 +808,22 @@ def handle_meow_at_door(mqtt_sender, number_entry):
 def handle_ask_for_food(mqtt_sender):
     print("Asks for food to be filled")
     mqtt_sender.send_message('ask_for_food')
+
+###############################################################################
+# Handlers for Buttons in the Nasser's personal frame.
+###############################################################################
+
+def handle_quick_attack(mqtt_sender):
+    pass
+
+def handle_tackle(mqtt_sender):
+    pass
+
+def handle_growl(mqtt_sender):
+    pass
+
+def handle_defense_curl(mqtt_sender):
+    pass
+
+def handle_scratch(mqtt_sender):
+    pass
