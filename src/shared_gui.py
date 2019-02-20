@@ -486,23 +486,29 @@ def build_rattata(window,mqtt_sender):
     quick_attack_button = ttk.Button(frame, text="quick attack")
     defense_curl_button = ttk.Button(frame, text="defense curl")
     scratch_button = ttk.Button(frame, text="scratch")
-    tackle_button = ttk.Button(frame, text="tackle")
     growl_button = ttk.Button(frame, text="growl")
+
+    scratches_entry = ttk.Entry(frame,width=8)
+    curl_entry = ttk.Entry(frame,width=8)
+
+    quick_attack_slider = ttk.Scale(frame)
 
     # Grid the widgets:
     frame_label.grid(row=0,column=1)
     quick_attack_button.grid(row=1, column=0)
-    defense_curl_button.grid(row=1,column=2)
-    scratch_button.grid(row=3, column=0)
-    tackle_button.grid(row=3,column=2)
-    growl_button.grid(row=2,column=2)
+    defense_curl_button.grid(row=4,column=2)
+    curl_entry.grid(row=3,column=2)
+    scratch_button.grid(row=4, column=0)
+    scratches_entry.grid(row=3,column=0)
+    quick_attack_slider.grid(row=2,column=0)
+    growl_button.grid(row=1,column=2)
 
 
     # Set the Button callbacks:
     quick_attack_button["command"] = lambda: handle_quick_attack(mqtt_sender)
     defense_curl_button["command"] = lambda: handle_defense_curl(mqtt_sender)
     scratch_button["command"] = lambda: handle_scratch(mqtt_sender)
-    tackle_button["command"] = lambda: handle_tackle(mqtt_sender)
+    #tackle_button["command"] = lambda: handle_tackle(mqtt_sender)
     growl_button["command"] = lambda: handle_growl(mqtt_sender)
 
     return frame
