@@ -294,7 +294,7 @@ class DelegateThatRecieves(object):
             if round(ir_distance) > int(distance):
                 self.robot.sound_system.speech_maker.speak("eva")
                 self.robot.drive_system.go(int(speed), int(speed))
-                if round(ir_distance) < int(distance):
+                if round(ir_distance) <= int(distance):
                     self.robot.drive_system.stop()
                     break
 
