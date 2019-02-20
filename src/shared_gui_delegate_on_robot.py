@@ -216,6 +216,7 @@ class DelegateThatRecieves(object):
         count = 0
         while True:
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            print(distance)
             if distance <= 5:
                 self.robot.sound_system.speech_maker.speak("Thank you sir")
                 count = count + 1
