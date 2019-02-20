@@ -11,6 +11,7 @@ import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
 import shared_gui
+import m3_extra as m3
 
 
 def main():
@@ -44,7 +45,7 @@ def main():
     # -------------------------------------------------------------------------
     #teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame,color_frame,infrared_frame = get_shared_frames(main_frame, mqtt_sender)
     #infrared_frame = build_infrared_frame(main_frame,mqtt_sender)
-    final_frame = build_rattata(main_frame,mqtt_sender)
+    final_frame = shared_gui.build_rattata(main_frame,mqtt_sender)
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
@@ -54,7 +55,8 @@ def main():
     # Grid the frames.
     # -------------------------------------------------------------------------
     #grid_shared_frames(teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame,color_frame,infrared_frame)
-    grid_my_frames()
+    #grid_my_frames()
+    grid_final_frame(final_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -84,6 +86,8 @@ def grid_shared_frames(teleop_frame, arm_frame, control_frame,sensor_frame, soun
     color_frame.grid(row=0, column=1)
     infrared_frame.grid(row=1, column=1)
 
+def grid_final_frame(final_frame):
+    final_frame.grid(row=0,column=0)
 
 def grid_my_frames(infrared_frame):
     infrared_frame.grid(row=0,column=0)
@@ -123,6 +127,8 @@ def build_infrared_frame(window,mqtt_sender):
 
     return frame
 
+def rattata_frame(main_frame,mqtt_sender):
+    final_frame = shared_gui.build_rattata(main_frame,mqtt_sender)
 
 
 
@@ -132,6 +138,8 @@ def handle_pick_up_object(mqtt_sender,distance_entry,speed_entry):
 
 def handle_search_for_object(mqtt_sender,delta_entry,speed_entry):
     mqtt_sender.send_message('search_for_object', [delta_entry.get(),speed_entry.get()])
+
+
 
 
 

@@ -499,12 +499,11 @@ def build_rattata(window,mqtt_sender):
 
 
     # Set the Button callbacks:
-    quick_attack_button["command"] = lambda: \
-        m3.handle_pick_up_object(mqtt_sender)
-    defense_curl_button["command"] = lambda: \
-    #    shared_gui.handle_go_forward_until_distance_is_less_than(mqtt_sender,distance_entry,speed_entry)
-    scratch_button["command"] = lambda: \
-        handle_search_for_object(mqtt_sender,)
+    quick_attack_button["command"] = lambda: m3.quick_attack(mqtt_sender)
+    defense_curl_button["command"] = lambda: m3.defense_curl(mqtt_sender)
+    scratch_button["command"] = lambda: m3.scratch(mqtt_sender)
+    tackle_button["command"] = lambda: m3.tackle(mqtt_sender)
+    growl_button["command"] = lambda: m3.growl(mqtt_sender)
 
     return frame
 
