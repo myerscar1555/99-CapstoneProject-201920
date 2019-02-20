@@ -162,25 +162,19 @@ class DelegateThatRecieves(object):
         count =0
         while True:
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+
+            self.robot.drive_system.go_straight_for_inches_using_encoder(24, 50)
+            self.robot.drive_system.go(-30, 30)
+            time.sleep(4)
             if distance < 15:
                 self.robot.drive_system.go(30, 30)
-                if distance<4:
+                if distance < 4:
                     self.robot.drive_system.stop()
                     self.robot.drive_system.go(-30 - (int(aggression_slider) * 50), 30 + (int(aggression_slider) * 50))
                     count = count + 1
                     if count == int(number_entry):
                         break
-            self.robot.drive_system.go(30, 30)
-            time.sleep(3)
-            self.robot.drive_system.stop()
-            self.robot.drive_system.go(-30, 30)
-            time.sleep(1)
-            self.robot.drive_system.go(30, -30)
-            time.sleep(2)
-            self.robot.drive_system.go(-30, 30)
-            time.sleep(1)
-            self.robot.drive_system.stop()
-
+                        
     def meow_at_door(self, number_entry):
         self.robot.drive_system.go(100, 100)
         count = 0
@@ -192,7 +186,7 @@ class DelegateThatRecieves(object):
             if distance <= 20:
                 num = num + 1
                 self.robot.drive_system.stop()
-                self.robot.sound_system.tone_maker.play_tone(1000 + count, 1)
+                self.robot.sound_system.tone_maker.play_tone(1000 + count, 1000)
                 if count >= 1000:
                     count = 0
             elif num != 0:
@@ -215,7 +209,7 @@ class DelegateThatRecieves(object):
         while True:
             self.robot.sound_system.speech_maker.speak("Brother may I have some oats")
             count = count + 1
-            if count == 10:
+            if count <= 1:
                 break
 
     def get_pet(self, number_entry):
@@ -226,7 +220,7 @@ class DelegateThatRecieves(object):
                 self.robot.sound_system.speech_maker.speak("Thank you sir")
                 count = count + 1
                 if count >= number_entry:
-                    self.robot.drive_system.go_backward_until_distance_is_greater_than(60, 100)
+                    self.robot.drive_system.go(-100, -100)
                     break
 
     def follow_mouse(self):
