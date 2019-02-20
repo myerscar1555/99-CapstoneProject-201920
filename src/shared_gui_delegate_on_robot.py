@@ -202,5 +202,5 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.stop()
                 times = times + 1
                 num = 0
-                if times == number_entry:
+                if times == int(number_entry):
                     break

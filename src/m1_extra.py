@@ -32,8 +32,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    knock_off_frame = get_shared_frames(main_frame, mqtt_sender)
-    meow_at_door_frame = get_shared_frames(main_frame, mqtt_sender)
+    knock_off_frame,meow_at_door_frame = get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -43,7 +42,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_shared_frames(knock_off_frame, meow_at_door_frame)
+    grid_shared_frames(knock_off_frame,meow_at_door_frame)
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
