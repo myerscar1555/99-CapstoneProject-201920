@@ -490,7 +490,7 @@ def build_rattata(window,mqtt_sender):
     growl_button = ttk.Button(frame, text="growl")
 
     # Grid the widgets:
-    frame_label.grid(row=0,column=1, bg='green')
+    frame_label.grid(row=0,column=1)
     quick_attack_button.grid(row=1, column=0)
     defense_curl_button.grid(row=1,column=2)
     scratch_button.grid(row=3, column=0)
