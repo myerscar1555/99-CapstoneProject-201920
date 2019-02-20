@@ -32,7 +32,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    knock_off_frame,meow_at_door_frame,ask_for_food_frame,petting_frame,follow_mouse_frame = get_shared_frames(main_frame, mqtt_sender)
+    knock_off_frame,meow_at_door_frame,ask_for_food_frame,petting_frame,follow_mouse_frame,teleop_frame = get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -42,7 +42,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_shared_frames(knock_off_frame,meow_at_door_frame,ask_for_food_frame,petting_frame,follow_mouse_frame)
+    grid_shared_frames(knock_off_frame,meow_at_door_frame,ask_for_food_frame,petting_frame,follow_mouse_frame,teleop_frame)
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
@@ -56,13 +56,15 @@ def get_shared_frames(window, mqtt_sender):
     ask_for_food_frame = shared_gui.get_ask_for_food_frame(window, mqtt_sender)
     petting_frame = shared_gui.get_petting_frame(window, mqtt_sender)
     follow_mouse_frame = shared_gui.get_follow_mouse_frame(window, mqtt_sender)
-    return knock_off_frame, meow_at_door_frame, ask_for_food_frame, petting_frame, follow_mouse_frame
+    teleop_frame = shared_gui.get_teleoperation_frame(window, mqtt_sender)
+    return knock_off_frame, meow_at_door_frame, ask_for_food_frame, petting_frame, follow_mouse_frame,teleop_frame
 
-def grid_shared_frames(knock_off_frame, meow_at_door_frame, ask_for_food_frame, petting_frame, follow_mouse_frame):
+def grid_shared_frames(knock_off_frame, meow_at_door_frame, ask_for_food_frame, petting_frame, follow_mouse_frame, teleop_frame):
     knock_off_frame.grid(row=1, column=0)
     meow_at_door_frame.grid(row=2, column=1)
     ask_for_food_frame.grid(row=3, column=0)
     petting_frame.grid(row=4, column=1)
     follow_mouse_frame.grid(row=5, column=0)
+    teleop_frame.grid(row=6,column=1)
 
 main()
