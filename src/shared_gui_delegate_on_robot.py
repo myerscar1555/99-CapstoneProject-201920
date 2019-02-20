@@ -310,18 +310,18 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.right_motor.turn_on(-50)
 
     def walle_fun(self, speed):
-        self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
+        self.robot.drive_system.go_straight_for_inches_using_encoder(24, int(speed))
         self.robot.drive_system.go(50, -50)
-        time.sleep(2)
-        self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
+        time.sleep(1.5)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(24, int(speed))
         self.robot.drive_system.go(50, -50)
-        time.sleep(2)
-        self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
+        time.sleep(1.5)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(24, int(speed))
         self.robot.drive_system.go(50, -50)
-        time.sleep(2)
-        self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
+        time.sleep(1.5)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(24, int(speed))
         self.robot.drive_system.go(50, -50)
-        time.sleep(2)
+        time.sleep(1.5)
         self.robot.drive_system.stop()
 
     def run_and_hide(self):
