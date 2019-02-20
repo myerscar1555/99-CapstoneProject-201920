@@ -42,7 +42,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, stack_frame, follow_frame, recycle_frame, fun_frame = get_shared_frames(main_frame, mqtt_sender)
+    teleop_frame, stack_frame, follow_frame, recycle_frame, fun_frame, scared_frame = get_shared_frames(main_frame, mqtt_sender)
 
 
     # -------------------------------------------------------------------------
@@ -53,7 +53,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, stack_frame, follow_frame, recycle_frame, fun_frame)
+    grid_frames(teleop_frame, stack_frame, follow_frame, recycle_frame, fun_frame, scared_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -69,8 +69,9 @@ def get_shared_frames(main_frame, mqtt_sender):
     follow_frame = Follow_Eva(main_frame, mqtt_sender)
     recycle_frame = recycle(main_frame, mqtt_sender)
     fun_frame = bored_WallE(main_frame, mqtt_sender)
+    scared_frame = run_and_hide(main_frame, mqtt_sender)
 
-    return (teleop_frame, stack_frame, follow_frame, recycle_frame, fun_frame)
+    return (teleop_frame, stack_frame, follow_frame, recycle_frame, fun_frame, scared_frame)
 
 
 def trash_stack(main_frame,mqtt_sender):
@@ -190,15 +191,42 @@ def bored_WallE(main_frame,mqtt_sender):
 
 def handle_fun(mqtt_sender, fun_slider):
     print("Wall-E will now make his own fun")
-    mqtt_sender.send_message('walle_fun', [fun_slider.get])
+    mqtt_sender.send_message('walle_fun', [fun_slider])
 
 
-def grid_frames(teleop_frame, stack_frame, follow_frame, recycle_frame, fun_frame):
+def run_and_hide(main_frame,mqtt_sender):
+    frame = ttk.Frame(main_frame, padding=5, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Wall-E is scared")
+    scared_button = ttk.Button(frame, text="Make Wall-E run and hide")
+
+
+
+    # Grid the widgets:
+    frame_label.grid(row=1, column=0)
+    scared_button.grid(row=3, column=0)
+
+
+
+    # Set the Button callbacks:
+    scared_button["command"] = lambda: handle_scared(mqtt_sender)
+
+    return frame
+
+
+def handle_scared(mqtt_sender):
+    print("Wall-E will now run and hide")
+    mqtt_sender.send_message('run_and_hide')
+
+def grid_frames(teleop_frame, stack_frame, follow_frame, recycle_frame, fun_frame, scared_frame):
     teleop_frame.grid(row=0,column=0)
     stack_frame.grid(row=1, column=0)
     follow_frame.grid(row=0, column=1)
     recycle_frame.grid(row=1, column=1)
     fun_frame.grid(row=0, column=2)
+    scared_frame.grid(row=1, column=2)
 
 
 
