@@ -204,3 +204,16 @@ class DelegateThatRecieves(object):
                 num = 0
                 if times == int(number_entry):
                     break
+
+    def ask_for_food(self):
+        count = 0
+        self.robot.arm_and_claw.raise_arm()
+        self.robot.drive_system.go(-50, 50)
+        time.sleep(2.5)
+        self.robot.drive_system.stop()
+        self.robot.drive_system.go_straight_for_inches_using_encoder(48, 100)
+        while True:
+            self.robot.sound_system.speech_maker.speak("Brother may I have some oats")
+            count = count + 1
+            if count == 10:
+                break
