@@ -814,16 +814,22 @@ def handle_ask_for_food(mqtt_sender):
 ###############################################################################
 
 def handle_quick_attack(mqtt_sender):
-    pass
+    print("Rattata used quick attack")
+    mqtt_sender.send_message('quick_attack')
+
 
 def handle_tackle(mqtt_sender):
-    pass
+    print("Rattata used tackle")
+    mqtt_sender.send_message('tackle')
 
 def handle_growl(mqtt_sender):
-    pass
+    print("Rattata used growl")
+    mqtt_sender.send_message('growl')
 
 def handle_defense_curl(mqtt_sender):
-    pass
+    print("Rattata used defense curl")
+    mqtt_sender.send_message('defense_curl')
 
 def handle_scratch(mqtt_sender):
-    pass
+    print("Rattata used scratch")
+    mqtt_sender.send_message('scratch')
