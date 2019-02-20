@@ -236,7 +236,10 @@ class DelegateThatRecieves(object):
             if (b.width * b.height) >= 25:
                 self.robot.drive_system.go(100, 100)
                 if distance <= 5:
+                    self.robot.drive_system.stop()
                     self.robot.arm_and_claw.raise_arm()
+                    self.robot.arm_and_claw.lower_arm()
+                    break
 
     def growl(self):
         self.robot.sound_system.speech_maker.speak("Roar. Be Afraid")
