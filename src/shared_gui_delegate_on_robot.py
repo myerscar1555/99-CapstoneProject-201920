@@ -164,6 +164,7 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.go_straight_for_inches_using_encoder(12, 50)
                 self.robot.drive_system.go(-50 - (int(aggression_slider) * 50), 50 + (int(aggression_slider) * 50))
                 time.sleep(6)
+            self.robot.stop()
             break
 
 
