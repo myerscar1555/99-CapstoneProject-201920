@@ -231,12 +231,14 @@ class DelegateThatRecieves(object):
                     break
 
     def search_for_enemy(self, distance_entry):
-        while (self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() > distance_entry):
+        distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        while ( distance > distance_entry):
             self.robot.drive_system.go(25, -25)
             time.sleep(.1)
             self.robot.drive_system.stop()
             time.sleep(.2)
-            distance_entry = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        self.robot.sound_system.speech_maker.speak("Rattata found an enemy")
 
     def growl(self):
         self.robot.sound_system.speech_maker.speak("Roar. Be Afraid")
@@ -258,15 +260,17 @@ class DelegateThatRecieves(object):
         self.robot.drive_system.go(100,-100)
         time.sleep(curl_entry)
         self.robot.drive_system.stop()
+        self.robot.sound_system.speech_maker.speak("Rattata's defense increased")
 
 
-    def scratch(self):
-        self.robot.arm_and_claw.raise_arm()
-        self.robot.arm_and_claw.lower_arm()
+    def scratch(self, scratches_entry):
+        for _ in range(scratches_entry):
+            self.robot.arm_and_claw.raise_arm()
+            self.robot.arm_and_claw.lower_arm()
         if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 10:
             self.robot.sound_system.speech_maker.speak("Rattata missed!")
         else:
-            self.robot.sound_system.speech_maker.speak("Rattata dealt 5 damage! It's not very effective")
+            self.robot.sound_system.speech_maker.speak("Rattata dealt " + str(5* scratches_entry) + " damage! It's not very effective")
 
     def stack_blocks(self, speed):
         while True:
