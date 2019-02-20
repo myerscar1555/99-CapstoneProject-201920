@@ -246,20 +246,16 @@ class DelegateThatRecieves(object):
             self.robot.sound_system.speech_maker.speak("Rattata dealt 10 damage!")
         self.robot.drive_system.go_backward_until_distance_is_greater_than(70,100)
 
-
-    def tackle(self):
-        self.robot.drive_system.go_forward_until_distance_is_less_than(10,50)
-        self.robot.drive_system.go_backward_until_distance_is_greater_than(70,100)
-
     def defense_curl(self,curl_entry):
         self.robot.drive_system.go(100,-100)
         time.sleep(curl_entry)
         self.robot.drive_system.stop()
 
 
-    def scratch(self):
-        self.robot.arm_and_claw.raise_arm()
-        self.robot.arm_and_claw.lower_arm()
+    def scratch(self,scratches_entry):
+        for _ in range(scratches_entry):
+            self.robot.arm_and_claw.raise_arm()
+            self.robot.arm_and_claw.lower_arm()
         if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 10:
             self.robot.sound_system.speech_maker.speak("Rattata missed!")
         else:
