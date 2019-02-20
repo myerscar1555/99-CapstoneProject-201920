@@ -47,3 +47,12 @@ def get_follow_mouse_frame(window,mqtt_sender):
 def handle_follow_mouse(mqtt_sender):
     print("Follows a mouse around")
     mqtt_sender.send_message('follow_mouse')
+
+def follow_mouse(self):
+    while True:
+        b = self.sensor_system.camera.get_biggest_blob()
+        distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        if (b.width * b.height) >= 25:
+            self.robot.drive_system.go(100, 100)
+            if distance <= 5:
+                self.robot.arm_and_claw.raise_arm()
