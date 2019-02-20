@@ -867,22 +867,18 @@ def handle_follow_mouse(mqtt_sender):
 # Handlers for Buttons in the Nasser's personal frame.
 ###############################################################################
 
-def handle_quick_attack(mqtt_sender):
+def handle_quick_attack(mqtt_sender,scale_entry):
     print("Rattata used quick attack")
-    mqtt_sender.send_message('quick_attack')
-
-def handle_tackle(mqtt_sender):
-    print("Rattata used tackle")
-    mqtt_sender.send_message('tackle')
+    mqtt_sender.send_message('quick_attack', [scale_entry.get() * 100])
 
 def handle_growl(mqtt_sender):
     print("Rattata used growl")
     mqtt_sender.send_message('growl')
 
-def handle_defense_curl(mqtt_sender):
+def handle_defense_curl(mqtt_sender,spin_entry):
     print("Rattata used defense curl")
-    mqtt_sender.send_message('defense_curl')
+    mqtt_sender.send_message('defense_curl',[int(spin_entry.get())])
 
-def handle_scratch(mqtt_sender):
+def handle_scratch(mqtt_sender,scratch_entry):
     print("Rattata used scratch")
-    mqtt_sender.send_message('scratch')
+    mqtt_sender.send_message('scratch', [int(scratch_entry.get())])
