@@ -59,6 +59,7 @@ def main():
     #grid_my_frames()
     grid_final_frame(final_frame)
 
+
     filename = PhotoImage(file='C:\\Users\\hegarnn\\Desktop\\rattata.png')
     rattata_img = ttk.Label(main_frame,image=filename)
     rattata_img.grid(row=0,column=2)
@@ -69,7 +70,7 @@ def main():
 
     root.mainloop()
 
-
+#gets the frames we worked on in class and puts them into variables that are returned
 def get_shared_frames(main_frame, mqtt_sender):
     teleop_frame = shared_gui.get_teleoperation_frame(main_frame,mqtt_sender)
     arm_frame = shared_gui.get_arm_frame(main_frame,mqtt_sender)
@@ -81,7 +82,7 @@ def get_shared_frames(main_frame, mqtt_sender):
 
     return teleop_frame,arm_frame,control_arm,sensor_frame,soundsystem_frame,color_frame,infrared_frame
 
-
+#grids the frames we worked on together in class
 def grid_shared_frames(teleop_frame, arm_frame, control_frame,sensor_frame, soundsystem_frame,color_frame, infrared_frame):
     teleop_frame.grid(row=0,column=0)
     arm_frame.grid(row=1,column=0)
@@ -94,9 +95,11 @@ def grid_shared_frames(teleop_frame, arm_frame, control_frame,sensor_frame, soun
 def grid_final_frame(final_frame):
     final_frame.grid(row=0,column=0)
 
+#grids the frames for feature 9
 def grid_my_frames(infrared_frame):
     infrared_frame.grid(row=0,column=0)
 
+#builds the frame for feature 9
 def build_infrared_frame(window,mqtt_sender):
     frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
     frame.grid()
@@ -133,12 +136,14 @@ def build_infrared_frame(window,mqtt_sender):
     return frame
 
 
-
+#Gets the frame for rattata for the final project
 def rattata_frame(main_frame,mqtt_sender):
     final_frame = shared_gui.build_rattata(main_frame,mqtt_sender)
 
 
-
+'''
+handlers for feature 9
+'''
 def handle_pick_up_object(mqtt_sender,distance_entry,speed_entry):
     mqtt_sender.send_message('pick_up_object',
                              [distance_entry.get(),speed_entry.get()])
