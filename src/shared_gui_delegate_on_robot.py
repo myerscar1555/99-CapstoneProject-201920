@@ -174,7 +174,7 @@ class DelegateThatRecieves(object):
                     count = count + 1
                     if count == int(number_entry):
                         break
-                        
+
     def meow_at_door(self, number_entry):
         self.robot.drive_system.go(100, 100)
         count = 0
