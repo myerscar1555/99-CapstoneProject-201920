@@ -166,9 +166,9 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.go(30, 30)
                 if distance<4:
                     self.robot.drive_system.stop()
-                    self.robot.drive_system.go(-30 - aggression_slider, 30 + aggression_slider)
+                    self.robot.drive_system.go(-30 - int(aggression_slider), 30 + int(aggression_slider))
                     count = count + 1
-                    if count == number_entry:
+                    if count == int(number_entry):
                         break
             self.robot.drive_system.go(30, 30)
             time.sleep(3)

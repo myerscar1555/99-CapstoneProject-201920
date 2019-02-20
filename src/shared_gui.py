@@ -501,6 +501,30 @@ def get_knock_off_frame(window,mqtt_sender):
 
     return frame
 
+def get_meow_at_door_frame(window,mqtt_sender):
+    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Meow at Door")
+    meow_at_door = ttk.Button(frame, text="Meows at door until you let it out")
+    number_label = ttk.Label(frame, text="Times to want in/out")
+    number_entry = ttk.Entry(frame, width=8)
+
+
+    # Grid the widgets:
+    frame_label.grid(row=1, column=1)
+    knock_off_table.grid(row=2, column=1)
+    number_entry.grid(row=3, column=0)
+    number_label.grid(row=4, column=0)
+    aggression_slider.grid(row=3, column=2)
+    aggression_label.grid(row=4, column=2)
+
+    # Set the Button callbacks:
+    knock_off_table["command"] = lambda: handle_knock_off(mqtt_sender, aggression_slider, number_entry)
+
+    return frame
+
 def handle_tone_until_distance_is_less_than(mqtt_sender,distance_entry, speed_entry, frequency_entry, rate_entry):
     print("will go until closer than: ", distance_entry.get())
     mqtt_sender.send_message('tone_until_distance_is_less_than', [distance_entry.get(), speed_entry.get(), frequency_entry.get(), rate_entry.get()])
