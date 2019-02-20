@@ -162,18 +162,13 @@ class DelegateThatRecieves(object):
         count =0
         while True:
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            for k in range(number_entry):
+                self.robot.drive_system.go_straight_for_inches_using_encoder(12, 50)
+                self.robot.drive_system.go(-30 - (int(aggression_slider) * 50), 30 + (int(aggression_slider) * 50))
+                time.sleep(4)
+            break
 
-            self.robot.drive_system.go_straight_for_inches_using_encoder(24, 50)
-            self.robot.drive_system.go(-30, 30)
-            time.sleep(4)
-            if distance < 15:
-                self.robot.drive_system.go(30, 30)
-                if distance < 4:
-                    self.robot.drive_system.stop()
-                    self.robot.drive_system.go(-30 - (int(aggression_slider) * 50), 30 + (int(aggression_slider) * 50))
-                    count = count + 1
-                    if count == int(number_entry):
-                        break
+
 
     def meow_at_door(self, number_entry):
         self.robot.drive_system.go(100, 100)
