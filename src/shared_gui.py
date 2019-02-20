@@ -809,6 +809,10 @@ def handle_ask_for_food(mqtt_sender):
     print("Asks for food to be filled")
     mqtt_sender.send_message('ask_for_food')
 
+def handle_get_pet(mqtt_sender, number_entry):
+    print("Gets pet", number_entry.get(), "times before running away")
+    mqtt_sender.send_message('get_pet', [number_entry.get()])
+
 ###############################################################################
 # Handlers for Buttons in the Nasser's personal frame.
 ###############################################################################

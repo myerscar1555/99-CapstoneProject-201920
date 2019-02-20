@@ -24,4 +24,4 @@ def get_petting_frame(window,mqtt_sender):
 
 def handle_get_pet(mqtt_sender, number_entry):
     print("Gets pet", number_entry.get(), "times before running away")
-    mqtt_sender.send_message('get pet', [number_entry.get()])
+    mqtt_sender.send_message('get_pet', [number_entry.get()])
