@@ -278,7 +278,7 @@ class DelegateThatRecieves(object):
             if distance < 60:
                 self.robot.drive_system.go(int(speed), int(speed))
                 print(distance)
-                if distance < int(14):
+                if distance < int(7):
                     self.robot.drive_system.stop()
                     self.robot.arm_and_claw.raise_arm()
                     self.go_straight_for_inches_using_encoder(12, int(speed))
@@ -304,7 +304,7 @@ class DelegateThatRecieves(object):
             if distance < 60:
                 self.robot.drive_system.go(50, 50)
                 print(distance)
-                if distance < int(14):
+                if distance < int(7):
                     self.robot.drive_system.stop()
                     self.robot.arm_and_claw.raise_arm()
                     self.robot.drive_system.go(50, -50)
