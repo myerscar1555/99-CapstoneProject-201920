@@ -309,16 +309,7 @@ class DelegateThatRecieves(object):
         self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
         self.robot.drive_system.go(50, -50)
         time.sleep(2)
-        self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
-        self.robot.drive_system.go(50, -50)
-        time.sleep(2)
-        self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
-        self.robot.drive_system.go(50, -50)
-        time.sleep(2)
-        self.robot.drive_system.go_straight_for_inches_using_encoder(12, int(speed))
-        self.robot.drive_system.go(50, -50)
-        time.sleep(2)
-        self.robot.drive_system.stop()
+        
 
     def run_and_hide(self):
         while True:
