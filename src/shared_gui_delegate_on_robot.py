@@ -163,7 +163,7 @@ class DelegateThatRecieves(object):
             for k in range(int(number_entry)):
                 self.robot.drive_system.go_straight_for_inches_using_encoder(12, 50)
                 self.robot.drive_system.go(-50 - (int(aggression_slider) * 50), 50 + (int(aggression_slider) * 50))
-                time.sleep(3)
+                time.sleep(6)
             break
 
 
@@ -185,7 +185,7 @@ class DelegateThatRecieves(object):
             elif num != 0:
                 self.robot.drive_system.go_straight_for_inches_using_encoder(44, 100)
                 self.robot.drive_system.go(50, -50)
-                time.sleep(1.5)
+                time.sleep(3)
                 self.robot.drive_system.stop()
                 times = times + 1
                 num = 0
@@ -196,7 +196,7 @@ class DelegateThatRecieves(object):
         count = 0
         self.robot.arm_and_claw.raise_arm()
         self.robot.drive_system.go(-50, 50)
-        time.sleep(1.5)
+        time.sleep(3)
         self.robot.drive_system.stop()
         self.robot.drive_system.go_straight_for_inches_using_encoder(48, 100)
         while True:
