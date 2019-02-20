@@ -232,15 +232,15 @@ class DelegateThatRecieves(object):
     def search_for_enemy(self, distance_entry):
         distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         while ( distance > distance_entry):
-            self.robot.drive_system.go(25, -25)
-            time.sleep(.1)
+            self.robot.drive_system.go(30, -30)
+            time.sleep(.5)
             self.robot.drive_system.stop()
             time.sleep(.2)
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         self.robot.sound_system.speech_maker.speak("Rattata found an enemy")
 
     def growl(self):
-        self.robot.sound_system.speech_maker.speak("Roar. Be Afraid")
+        self.robot.sound_system.speech_maker.speak("Growl. Be Afraid")
 
     def quick_attack(self,scale_entry):
         self.robot.drive_system.go_forward_until_distance_is_less_than(10,scale_entry)
