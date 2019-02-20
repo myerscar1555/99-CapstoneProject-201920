@@ -514,14 +514,12 @@ def get_meow_at_door_frame(window,mqtt_sender):
 
     # Grid the widgets:
     frame_label.grid(row=1, column=1)
-    knock_off_table.grid(row=2, column=1)
+    meow_at_door.grid(row=2, column=1)
     number_entry.grid(row=3, column=0)
     number_label.grid(row=4, column=0)
-    aggression_slider.grid(row=3, column=2)
-    aggression_label.grid(row=4, column=2)
 
     # Set the Button callbacks:
-    knock_off_table["command"] = lambda: handle_knock_off(mqtt_sender, aggression_slider, number_entry)
+    meow_at_door["command"] = lambda: handle_meow_at_door(mqtt_sender, number_entry)
 
     return frame
 
@@ -745,9 +743,13 @@ def handle_m3_feature_9(mqtt_sender, distance_entry, speed_entry):
 
 
 ###############################################################################
-# Handlers for Buttons in the Camera frame.
+# Handlers for Buttons in the Carter's personal frame.
 ###############################################################################
 
 def handle_knock_off(mqtt_sender, aggression_slider, number_entry):
-    print("knocks off", number_entry, "number of items")
+    print("knocks off ", number_entry, " number of items")
     mqtt_sender.send_message('knock_off_object', [aggression_slider.get(), number_entry.get()])
+
+def handle_meow_at_door(mqtt_sender, number_entry):
+    print("Wants in/out ", number_entry, "number of times")
+    mqtt_sender.send_message('meow at door', [number_entry.get()])

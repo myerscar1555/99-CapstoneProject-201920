@@ -181,4 +181,26 @@ class DelegateThatRecieves(object):
             time.sleep(1)
             self.robot.drive_system.stop()
 
-
+    def meow_at_door(self, number_entry):
+        self.robot.drive_system.go(100, 100)
+        count = 0
+        num = 0
+        times = 0
+        while True:
+            count = count + 50
+            distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            if distance <= 20:
+                num = num + 1
+                self.robot.drive_system.stop()
+                self.robot.sound_system.tone_maker.play_tone(1000 + count, 1)
+                if count >= 1000:
+                    count = 0
+            elif num != 0:
+                self.robot.drive_system.go_straight_for_inches_using_encoder(44, 100)
+                self.robot.drive_system.go(100, -100)
+                time.sleep(1.5)
+                self.robot.drive_system.stop()
+                times = times + 1
+                num = 0
+                if times == number_entry:
+                    break
