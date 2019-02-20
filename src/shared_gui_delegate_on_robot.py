@@ -162,7 +162,7 @@ class DelegateThatRecieves(object):
         count =0
         while True:
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-            for k in range(number_entry):
+            for k in range(int(number_entry)):
                 self.robot.drive_system.go_straight_for_inches_using_encoder(12, 50)
                 self.robot.drive_system.go(-30 - (int(aggression_slider) * 50), 30 + (int(aggression_slider) * 50))
                 time.sleep(4)
@@ -186,8 +186,8 @@ class DelegateThatRecieves(object):
                     count = 0
             elif num != 0:
                 self.robot.drive_system.go_straight_for_inches_using_encoder(44, 100)
-                self.robot.drive_system.go(100, -100)
-                time.sleep(2)
+                self.robot.drive_system.go(50, -50)
+                time.sleep(1.5)
                 self.robot.drive_system.stop()
                 times = times + 1
                 num = 0
@@ -198,13 +198,13 @@ class DelegateThatRecieves(object):
         count = 0
         self.robot.arm_and_claw.raise_arm()
         self.robot.drive_system.go(-50, 50)
-        time.sleep(2.5)
+        time.sleep(1.5)
         self.robot.drive_system.stop()
         self.robot.drive_system.go_straight_for_inches_using_encoder(48, 100)
         while True:
             self.robot.sound_system.speech_maker.speak("Brother may I have some oats")
             count = count + 1
-            if count <= 1:
+            if count >= 1:
                 break
 
     def get_pet(self, number_entry):
