@@ -224,7 +224,7 @@ class DelegateThatRecieves(object):
     def quick_attack(self):
         self.robot.drive_system.go_forward_until_distance_is_less_than(10,100)
         self.robot.drive_system.go_backward_until_distance_is_greater_than(70,100)
-        time.sleep(2)
+        
 
     def tackle(self):
         self.robot.drive_system.go_forward_until_distance_is_less_than(10,50)
