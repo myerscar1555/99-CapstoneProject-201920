@@ -296,7 +296,7 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.go(int(speed), int(speed))
                 if ir_distance < distance:
                     self.robot.drive_system.stop()
-
+                    break
     def recycle(self):
         while True:
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
@@ -346,6 +346,6 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.go(100, 100)
                 time.sleep(1)
                 self.robot.drive_system.stop()
-
+                break
 
 
