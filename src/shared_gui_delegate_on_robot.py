@@ -249,8 +249,9 @@ class DelegateThatRecieves(object):
 
     def defense_curl(self,curl_entry):
         self.robot.drive_system.go(100,-100)
-        time.sleep(curl_entry)
+        time.sleep(float(curl_entry * 2.3))
         self.robot.drive_system.stop()
+        self.robot.sound_system.speech_maker.speak("Rattata's defense increased")
 
 
     def scratch(self,scratches_entry):
