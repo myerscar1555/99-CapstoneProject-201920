@@ -219,7 +219,7 @@ class DelegateThatRecieves(object):
             if distance <= 5:
                 self.robot.sound_system.speech_maker.speak("Thank you sir")
                 count = count + 1
-                if count >= number_entry:
+                if count >= int(number_entry):
                     self.robot.drive_system.go(-100, -100)
                     break
 
