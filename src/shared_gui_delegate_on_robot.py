@@ -229,6 +229,15 @@ class DelegateThatRecieves(object):
                     self.robot.drive_system.go_backward_until_distance_is_greater_than(60, 100)
                     break
 
+    def follow_mouse(self):
+        while True:
+            b = self.sensor_system.camera.get_biggest_blob()
+            distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            if (b.width * b.height) >= 25:
+                self.robot.drive_system.go(100, 100)
+                if distance <= 5:
+                    self.robot.arm_and_claw.raise_arm()
+
     def growl(self):
         self.robot.sound_system.speech_maker.speak("Roar. Be Afraid")
 
