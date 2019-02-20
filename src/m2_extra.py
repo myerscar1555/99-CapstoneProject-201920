@@ -79,8 +79,8 @@ def trash_stack(main_frame,mqtt_sender):
     frame.grid()
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="Trash Stacking")
-    stack_blocks = ttk.Button(frame, text="Stack the blocks on top of each other")
+    frame_label = ttk.Label(frame, text="Trash Moving")
+    stack_blocks = ttk.Button(frame, text="Move the trash to another spot")
     speed_label = ttk.Label(frame, text='Speed of Wall-E')
     speed_entry = ttk.Entry(frame, width=8)
 
@@ -99,7 +99,7 @@ def trash_stack(main_frame,mqtt_sender):
 
 
 def handle_stack_blocks(mqtt_sender,speed_entry):
-    print("Wall-E will stack blocks at speed", speed_entry.get())
+    print("Wall-E will move blocks at speed", speed_entry.get())
     mqtt_sender.send_message('stack_blocks', [speed_entry.get()])
 
 
