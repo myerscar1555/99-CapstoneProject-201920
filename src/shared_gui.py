@@ -505,9 +505,9 @@ def build_rattata(window,mqtt_sender):
 
 
     # Set the Button callbacks:
-    quick_attack_button["command"] = lambda: handle_quick_attack(mqtt_sender)
-    defense_curl_button["command"] = lambda: handle_defense_curl(mqtt_sender)
-    scratch_button["command"] = lambda: handle_scratch(mqtt_sender)
+    quick_attack_button["command"] = lambda: handle_quick_attack(mqtt_sender,quick_attack_slider)
+    defense_curl_button["command"] = lambda: handle_defense_curl(mqtt_sender,curl_entry)
+    scratch_button["command"] = lambda: handle_scratch(mqtt_sender,scratches_entry)
     #tackle_button["command"] = lambda: handle_tackle(mqtt_sender)
     growl_button["command"] = lambda: handle_growl(mqtt_sender)
 
