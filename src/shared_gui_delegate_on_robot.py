@@ -229,6 +229,7 @@ class DelegateThatRecieves(object):
                     self.robot.arm_and_claw.lower_arm()
                     break
 
+    #The robot turns and searches for an enemy to attack within a range, in inches, that the user has decided
     def search_for_enemy(self, distance_entry):
         distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         while ( distance > distance_entry):
@@ -239,9 +240,12 @@ class DelegateThatRecieves(object):
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         self.robot.sound_system.speech_maker.speak("Rattata found an enemy")
 
+    #The robot growls at it's enemy in order to intimidate them and have their attack lowered
     def growl(self):
         self.robot.sound_system.speech_maker.speak("Growl. Be Afraid")
+        self.robot.sound_system.speech_maker.speak("The enemy's attack has been lowered")
 
+    #The robot charges quickly at it's enemy to deal damage to them. Afterwards the robot backs off ready to attack again
     def quick_attack(self,scale_entry):
         self.robot.drive_system.go_forward_until_distance_is_less_than(10,scale_entry)
         if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 10:
@@ -250,18 +254,14 @@ class DelegateThatRecieves(object):
             self.robot.sound_system.speech_maker.speak("Rattata dealt 10 damage!")
         self.robot.drive_system.go_backward_until_distance_is_greater_than(70,100)
 
-
-    def tackle(self):
-        self.robot.drive_system.go_forward_until_distance_is_less_than(10,50)
-        self.robot.drive_system.go_backward_until_distance_is_greater_than(70,100)
-
+    #The robot spins for however long the user tells it to so that it's defense increases
     def defense_curl(self,curl_entry):
         self.robot.drive_system.go(100,-100)
         time.sleep(curl_entry)
         self.robot.drive_system.stop()
         self.robot.sound_system.speech_maker.speak("Rattata's defense increased")
 
-
+    #A common move in Pokemon is scratch. Rattata learns this move and will scratch the enemy in front of them with his claw
     def scratch(self, scratches_entry):
         self.robot.drive_system.go_forward_until_distance_is_less_than(10,50)
         for _ in range(scratches_entry):
