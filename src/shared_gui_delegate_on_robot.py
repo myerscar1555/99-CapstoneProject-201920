@@ -273,6 +273,8 @@ class DelegateThatRecieves(object):
         else:
             self.robot.sound_system.speech_maker.speak("Rattata dealt " + str(5* scratches_entry) + " damage! It's not very effective")
 
+# This code will pick up a block, move the block 12 inches in front of Wall-E then lay the bock back down
+
     def stack_blocks(self, speed):
         while True:
 
@@ -290,6 +292,8 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.left_motor.turn_on(50)
                 self.robot.drive_system.right_motor.turn_on(-50)
 
+
+# This code makes it so that Wall-E will follow Eva until he gets too close and stops.
     def follow_eva(self, speed, distance):
         while True:
             ir_distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
@@ -299,6 +303,9 @@ class DelegateThatRecieves(object):
                 if round(ir_distance) <= int(distance):
                     self.robot.drive_system.stop()
                     break
+
+# This code makes it so that the robot will now pick up a block, turn around about 90 degrees
+    # and then it will lay the block down in the 'recycling' pile
 
     def recycle(self):
         while True:
@@ -318,6 +325,9 @@ class DelegateThatRecieves(object):
                 self.robot.drive_system.left_motor.turn_on(50)
                 self.robot.drive_system.right_motor.turn_on(-50)
 
+
+# This code will give Wall-E something fun to do, in this case it will make him run in a square
+
     def walle_fun(self, speed):
         self.robot.drive_system.go_straight_for_inches_using_encoder(24, int(speed))
         self.robot.drive_system.go(50, -50)
@@ -333,6 +343,8 @@ class DelegateThatRecieves(object):
         time.sleep(1.5)
         self.robot.drive_system.stop()
 
+# The run and hide code will make Wall-E get scared when he sees something too close,
+    # run backwards, go to the side, then go further back
     def run_and_hide(self):
         while True:
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
