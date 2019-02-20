@@ -291,10 +291,10 @@ class DelegateThatRecieves(object):
     def follow_eva(self, speed, distance):
         while True:
             ir_distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-            if ir_distance > distance:
+            if ir_distance > int(distance):
                 self.robot.sound_system.speech_maker.speak("eva")
                 self.robot.drive_system.go(int(speed), int(speed))
-                if ir_distance < distance:
+                if ir_distance < int(distance):
                     self.robot.drive_system.stop()
                     break
     def recycle(self):
