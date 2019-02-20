@@ -499,11 +499,11 @@ def build_rattata(window,mqtt_sender):
 
 
     # Set the Button callbacks:
-    quick_attack_button["command"] = lambda: m3.quick_attack(mqtt_sender)
-    defense_curl_button["command"] = lambda: m3.defense_curl(mqtt_sender)
-    scratch_button["command"] = lambda: m3.scratch(mqtt_sender)
-    tackle_button["command"] = lambda: m3.tackle(mqtt_sender)
-    growl_button["command"] = lambda: m3.growl(mqtt_sender)
+    quick_attack_button["command"] = lambda: handle_quick_attack(mqtt_sender)
+    defense_curl_button["command"] = lambda: handle_defense_curl(mqtt_sender)
+    scratch_button["command"] = lambda: handle_scratch(mqtt_sender)
+    tackle_button["command"] = lambda: handle_tackle(mqtt_sender)
+    growl_button["command"] = lambda: handle_growl(mqtt_sender)
 
     return frame
 
@@ -816,7 +816,6 @@ def handle_ask_for_food(mqtt_sender):
 def handle_quick_attack(mqtt_sender):
     print("Rattata used quick attack")
     mqtt_sender.send_message('quick_attack')
-
 
 def handle_tackle(mqtt_sender):
     print("Rattata used tackle")
