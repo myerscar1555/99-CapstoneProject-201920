@@ -64,7 +64,7 @@ def walle_fun(self, speed):
 
 
 
-def run_and_hid(self):
+def run_and_hide(self):
     while True:
         distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         if distance < 10:
