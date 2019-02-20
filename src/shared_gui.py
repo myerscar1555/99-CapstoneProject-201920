@@ -477,6 +477,38 @@ def get_m2_personal_infrared_frame(main_frame,mqtt_sender):
 
     return frame
 
+def build_rattata(window,mqtt_sender):
+    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Top Percentile Rattata")
+    quick_attack_button = ttk.Button(frame, text="quick attack")
+    defense_curl_button = ttk.Button(frame, text="defense curl")
+    scratch_button = ttk.Button(frame, text="scratch")
+    tackle_button = ttk.Button(frame, text="tackle")
+    growl_button = ttk.Button(frame, text="growl")
+
+    # Grid the widgets:
+    frame_label.grid(row=0,column=1)
+    quick_attack_button.grid(row=1, column=0)
+    defense_curl_button.grid(row=1,column=3)
+    scratch_button.grid(row=3, column=0)
+    tackle_button.grid(row=3,column=3)
+    growl_button.grid(row=2,column=2)
+
+
+    # Set the Button callbacks:
+    quick_attack_button["command"] = lambda: \
+        m3.handle_pick_up_object(mqtt_sender)
+    defense_curl_button["command"] = lambda: \
+    #    shared_gui.handle_go_forward_until_distance_is_less_than(mqtt_sender,distance_entry,speed_entry)
+    scratch_button["command"] = lambda: \
+        handle_search_for_object(mqtt_sender,)
+
+    return frame
+
+
 def get_knock_off_frame(window,mqtt_sender):
     frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
     frame.grid()
