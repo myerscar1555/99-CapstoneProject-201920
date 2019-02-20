@@ -238,8 +238,8 @@ class DelegateThatRecieves(object):
     def growl(self):
         self.robot.sound_system.speech_maker.speak("Roar. Be Afraid")
 
-    def quick_attack(self):
-        self.robot.drive_system.go_forward_until_distance_is_less_than(10,100)
+    def quick_attack(self,scale_entry):
+        self.robot.drive_system.go_forward_until_distance_is_less_than(10,scale_entry)
         if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 10:
             self.robot.sound_system.speech_maker.speak("Rattata missed!")
         else:
@@ -251,13 +251,20 @@ class DelegateThatRecieves(object):
         self.robot.drive_system.go_forward_until_distance_is_less_than(10,50)
         self.robot.drive_system.go_backward_until_distance_is_greater_than(70,100)
 
-    def defense_curl(self):
+    def defense_curl(self,curl_entry):
         self.robot.drive_system.go(100,-100)
+        time.sleep(curl_entry)
+        self.robot.drive_system.stop()
 
 
     def scratch(self):
         self.robot.arm_and_claw.raise_arm()
         self.robot.arm_and_claw.lower_arm()
+        if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 10:
+            self.robot.sound_system.speech_maker.speak("Rattata missed!")
+        else:
+            self.robot.sound_system.speech_maker.speak("Rattata dealt 5 damage! It's not very effective")
+
 
     def stack_blocks(self, speed):
         while True:
