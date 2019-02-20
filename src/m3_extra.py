@@ -3,6 +3,8 @@ import tkinter
 from tkinter import ttk
 import shared_gui
 import time
+import shared_gui_delegate_on_robot
+import rosebot
 
 # -------------------------------------------------------------------------
 # Construct and connect the MQTT Client:
@@ -33,6 +35,4 @@ def defense_curl(mqtt_sender):
 def scratch(mqtt_sender):
     shared_gui.handle_raise_arm(mqtt_sender)
     shared_gui.handle_lower_arm(mqtt_sender)
-
-
 

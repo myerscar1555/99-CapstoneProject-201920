@@ -237,6 +237,14 @@ class DelegateThatRecieves(object):
                     self.robot.arm_and_claw.lower_arm()
                     break
 
+    def search_for_enemy(self, distance_entry):
+        while (self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() > distance_entry):
+            self.robot.drive_system.go(25, -25)
+            time.sleep(.1)
+            self.robot.drive_system.stop()
+            time.sleep(.2)
+            distance_entry = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+
     def growl(self):
         self.robot.sound_system.speech_maker.speak("Roar. Be Afraid")
 
