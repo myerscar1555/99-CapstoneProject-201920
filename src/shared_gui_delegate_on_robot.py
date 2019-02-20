@@ -274,6 +274,7 @@ class DelegateThatRecieves(object):
 
     def stack_blocks(self, speed):
         while True:
+
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             if distance < 60:
                 self.robot.drive_system.go(int(speed), int(speed))
@@ -281,6 +282,7 @@ class DelegateThatRecieves(object):
                 if distance < int(14):
                     self.robot.drive_system.stop()
                     self.robot.arm_and_claw.raise_arm()
+                    self.go_straight_for_inches_using_encoder(12, int(speed))
                     self.robot.arm_and_claw.lower_arm()
                     break
             else:
@@ -291,7 +293,7 @@ class DelegateThatRecieves(object):
         while True:
             ir_distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             if ir_distance > distance:
-                self.robot.sound_system.speech_maker.speak("EVA")
+                self.robot.sound_system.speech_maker.speak("eva")
                 self.robot.drive_system.go(int(speed), int(speed))
                 if ir_distance < distance:
                     self.robot.drive_system.stop()
@@ -335,12 +337,13 @@ class DelegateThatRecieves(object):
             if distance < 10:
                 self.robot.sound_system.speech_maker.speak("NO, LEAVE ME BE")
                 self.robot.drive_system.go(-100, -100)
-                self.robot.drive_system.go(-25, 25)
-                time.sleep(2)
-                self.robot.drive_system.go(100, 100)
-                time.sleep(.5)
+                time.sleep(3)
                 self.robot.drive_system.go(-50, 50)
-                time.sleep(1)
+                time.sleep(1.5)
+                self.robot.drive_system.go(100, 100)
+                time.sleep(2)
+                self.robot.drive_system.go(-50, 50)
+                time.sleep(1.5)
                 self.robot.drive_system.go(100, 100)
                 time.sleep(1)
                 self.robot.drive_system.stop()
