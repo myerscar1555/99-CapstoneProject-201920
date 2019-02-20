@@ -803,7 +803,7 @@ def handle_knock_off(mqtt_sender, aggression_slider, number_entry):
 
 def handle_meow_at_door(mqtt_sender, number_entry):
     print("Wants in/out", number_entry.get(), "times")
-    mqtt_sender.send_message('meow at door', [number_entry.get()])
+    mqtt_sender.send_message('meow_at_door', [number_entry.get()])
 
 def handle_ask_for_food(mqtt_sender):
     print("Asks for food to be filled")
