@@ -487,9 +487,11 @@ def build_rattata(window,mqtt_sender):
     defense_curl_button = ttk.Button(frame, text="defense curl")
     scratch_button = ttk.Button(frame, text="scratch")
     growl_button = ttk.Button(frame, text="growl")
+    search_button = ttk.Button(frame,text="searching for enemy within x inches")
 
     scratches_entry = ttk.Entry(frame,width=8)
     curl_entry = ttk.Entry(frame,width=8)
+    search_distance_entry = ttk.Entry(frame,width=8)
 
     quick_attack_slider = ttk.Scale(frame)
 
@@ -502,6 +504,8 @@ def build_rattata(window,mqtt_sender):
     scratches_entry.grid(row=3,column=0)
     quick_attack_slider.grid(row=2,column=0)
     growl_button.grid(row=1,column=2)
+    search_button.grid(row=6,column=1)
+    search_distance_entry.grid(row=5, column=1)
 
 
     # Set the Button callbacks:
@@ -509,6 +513,7 @@ def build_rattata(window,mqtt_sender):
     defense_curl_button["command"] = lambda: handle_defense_curl(mqtt_sender,curl_entry)
     scratch_button["command"] = lambda: handle_scratch(mqtt_sender,scratches_entry)
     growl_button["command"] = lambda: handle_growl(mqtt_sender)
+    search_button["command"] = lambda: handle_search_for_enemy(mqtt_sender,search_distance_entry)
 
     return frame
 
@@ -881,3 +886,7 @@ def handle_defense_curl(mqtt_sender,spin_entry):
 def handle_scratch(mqtt_sender,scratch_entry):
     print("Rattata used scratch")
     mqtt_sender.send_message('scratch', [int(scratch_entry.get())])
+
+def handle_search_for_enemy(mqtt_sender,distance_entry):
+    print("Rattata looking for enemy")
+    mqtt_sender.send_message('search_for_enemy',[int(distance_entry.get())])
