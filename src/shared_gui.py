@@ -523,6 +523,24 @@ def get_meow_at_door_frame(window,mqtt_sender):
 
     return frame
 
+def get_ask_for_food_frame(window,mqtt_sender):
+    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Ask for food")
+    ask_for_food = ttk.Button(frame, text="Asks for more food until you give it some")
+
+
+    # Grid the widgets:
+    frame_label.grid(row=1, column=1)
+    ask_for_food.grid(row=2, column=1)
+
+    # Set the Button callbacks:
+    ask_for_food["command"] = lambda: handle_ask_for_food(mqtt_sender)
+
+    return frame
+
 def handle_tone_until_distance_is_less_than(mqtt_sender,distance_entry, speed_entry, frequency_entry, rate_entry):
     print("will go until closer than: ", distance_entry.get())
     mqtt_sender.send_message('tone_until_distance_is_less_than', [distance_entry.get(), speed_entry.get(), frequency_entry.get(), rate_entry.get()])
@@ -753,3 +771,7 @@ def handle_knock_off(mqtt_sender, aggression_slider, number_entry):
 def handle_meow_at_door(mqtt_sender, number_entry):
     print("Wants in/out", number_entry.get(), "times")
     mqtt_sender.send_message('meow at door', [number_entry.get()])
+
+def handle_ask_for_food(mqtt_sender):
+    print("Asks for food to be filled")
+    mqtt_sender.send_message('ask_for_food')
