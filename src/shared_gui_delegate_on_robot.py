@@ -192,7 +192,7 @@ class DelegateThatRecieves(object):
             elif num != 0:
                 self.robot.drive_system.go_straight_for_inches_using_encoder(44, 100)
                 self.robot.drive_system.go(100, -100)
-                time.sleep(1.5)
+                time.sleep(2)
                 self.robot.drive_system.stop()
                 times = times + 1
                 num = 0
@@ -222,6 +222,8 @@ class DelegateThatRecieves(object):
                 count = count + 1
                 if count >= int(number_entry):
                     self.robot.drive_system.go(-100, -100)
+                    time.sleep(3)
+                    self.robot.drive_system.stop()
                     break
 
     def follow_mouse(self):
