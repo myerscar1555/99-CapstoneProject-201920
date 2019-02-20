@@ -12,6 +12,7 @@ import tkinter
 from tkinter import ttk
 import shared_gui
 import m3_extra as m3
+from tkinter import *
 
 
 def main():
@@ -31,7 +32,7 @@ def main():
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
-    root.title("Robot Boi, Winter 2018-19")
+    root.title("Robot Rattata, Winter 2018-19")
 
 
     # -------------------------------------------------------------------------
@@ -57,6 +58,10 @@ def main():
     #grid_shared_frames(teleop_frame,arm_frame,control_frame,sensor_frame,soundsystem_frame,color_frame,infrared_frame)
     #grid_my_frames()
     grid_final_frame(final_frame)
+
+    filename = PhotoImage(file='C:\\Users\\hegarnn\\Desktop\\rattata.png')
+    rattata_img = ttk.Label(main_frame,image=filename)
+    rattata_img.grid(row=0,column=2)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -126,6 +131,8 @@ def build_infrared_frame(window,mqtt_sender):
         handle_search_for_object(mqtt_sender, delta_entry, speed_entry)
 
     return frame
+
+
 
 def rattata_frame(main_frame,mqtt_sender):
     final_frame = shared_gui.build_rattata(main_frame,mqtt_sender)
