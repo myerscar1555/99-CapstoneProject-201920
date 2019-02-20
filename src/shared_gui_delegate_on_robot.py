@@ -229,11 +229,27 @@ class DelegateThatRecieves(object):
                     self.robot.drive_system.go_backward_until_distance_is_greater_than(60, 100)
                     break
 
+    def follow_mouse(self):
+        while True:
+            b = self.robot.sensor_system.camera.get_biggest_blob()
+            distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            if (b.width * b.height) >= 25:
+                self.robot.drive_system.go(100, 100)
+                if distance <= 5:
+                    self.robot.drive_system.stop()
+                    self.robot.arm_and_claw.raise_arm()
+                    self.robot.arm_and_claw.lower_arm()
+                    break
+
     def growl(self):
         self.robot.sound_system.speech_maker.speak("Roar. Be Afraid")
 
     def quick_attack(self):
         self.robot.drive_system.go_forward_until_distance_is_less_than(10,100)
+        if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 10:
+            self.robot.sound_system.speech_maker.speak("Rattata missed!")
+        else:
+            self.robot.sound_system.speech_maker.speak("Rattata dealt 10 damage!")
         self.robot.drive_system.go_backward_until_distance_is_greater_than(70,100)
 
 
@@ -244,7 +260,9 @@ class DelegateThatRecieves(object):
     def defense_curl(self):
         self.robot.drive_system.go(100,-100)
 
+
     def scratch(self):
         self.robot.arm_and_claw.raise_arm()
         self.robot.arm_and_claw.lower_arm()
+
 
