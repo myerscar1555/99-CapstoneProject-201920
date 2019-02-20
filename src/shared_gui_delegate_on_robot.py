@@ -231,7 +231,7 @@ class DelegateThatRecieves(object):
 
     def follow_mouse(self):
         while True:
-            b = self.robot.drive_system.camera.get_biggest_blob()
+            b = self.robot.sensor_system.camera.get_biggest_blob()
             distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             if (b.width * b.height) >= 25:
                 self.robot.drive_system.go(100, 100)
