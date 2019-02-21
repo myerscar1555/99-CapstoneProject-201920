@@ -173,7 +173,7 @@ class DelegateThatRecieves(object):
 
 ###############################################################################
 # Robot drives up to the door and meows to be let in. Won't stop until the door
-# is open. 
+# is open.
 ###############################################################################
     def meow_at_door(self, number_entry):
         self.robot.drive_system.go(100, 100)
